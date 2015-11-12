@@ -1,0 +1,27 @@
+PODS:
+  - FBSnapshotTestCase (2.0.7):
+    - FBSnapshotTestCase/SwiftSupport (= 2.0.7)
+  - FBSnapshotTestCase/Core (2.0.7)
+  - FBSnapshotTestCase/SwiftSupport (2.0.7):
+    - FBSnapshotTestCase/Core
+  - PLForm (0.1.0):
+    - PureLayout
+  - PureLayout (3.0.1)
+  - TPKeyboardAvoiding (1.2.10)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - PLForm (from `../`)
+  - TPKeyboardAvoiding
+
+EXTERNAL SOURCES:
+  PLForm:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  PLForm: 65ba5989af399c8b53101e7f8494411a5834358b
+  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  TPKeyboardAvoiding: 614ebec846ec28b83d548769297fa5fb56468904
+
+COCOAPODS: 0.39.0
