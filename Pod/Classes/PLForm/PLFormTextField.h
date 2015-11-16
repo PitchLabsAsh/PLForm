@@ -31,6 +31,7 @@ typedef enum {
 @property (nonatomic, copy) NSString* originalValue;
 @property (nonatomic, assign) BBTextInputType inputType;
 
+
 @end
 
 
@@ -42,6 +43,12 @@ typedef enum {
 @property (nonatomic) /*IBInspectable*/ NSString *text;
 @property (nonatomic) /*IBInspectable*/ NSString *placeholder;
 @property (nonatomic) UIEdgeInsets contentInsets;
+
+@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *placeholderFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
+
 
 -(void)textFieldDidChange;
 -(void)updateWithElement:(PLFormTextFieldElement*)element;

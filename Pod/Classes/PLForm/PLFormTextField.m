@@ -59,6 +59,12 @@
 
 @end
 
+@interface PLFormTextField ()
+{
+    NSMutableDictionary *placeholderAttributes;
+}
+
+@end
 
 
 @implementation PLFormTextField
@@ -72,11 +78,7 @@
     _textfield.font = [PLStyleSettings sharedInstance].h1Font;
     _textfield.delegate = self;
     
-    self.contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
-
-    // here we should use a defined style not colour..
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderColor = [[PLStyleSettings sharedInstance] seperatorColor].CGColor;
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
 }
 
 
@@ -84,6 +86,55 @@
 {
     [self resignFirstResponder];
 }
+
+
+-(void)setFont:(UIFont *)font
+{
+    _textfield.font = font;
+}
+
+-(UIFont*)font
+{
+    return _textfield.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _textfield.textColor = color;
+}
+
+-(void)setPlaceholderFont:(UIFont *)font
+{
+    if (placeholderAttributes == nil)
+        placeholderAttributes  = [NSMutableDictionary dictionaryWithCapacity:10];
+    
+    [placeholderAttributes setObject:font forKey:NSFontAttributeName];
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:placeholderAttributes];
+}
+
+-(UIFont*)placeholderFont
+{
+    if (placeholderAttributes == nil)
+        return nil;
+    return placeholderAttributes[NSFontAttributeName];
+}
+
+-(void)setPlaceholderColor:(UIColor *)color
+{
+    if (placeholderAttributes == nil)
+        placeholderAttributes  = [NSMutableDictionary dictionaryWithCapacity:10];
+    
+    [placeholderAttributes setObject:color forKey:NSForegroundColorAttributeName];
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:placeholderAttributes];
+}
+
+-(UIFont*)placeholderColor
+{
+    if (placeholderAttributes == nil)
+        return nil;
+    return placeholderAttributes[NSForegroundColorAttributeName];
+}
+
 
 - (void)setContentInsets:(UIEdgeInsets)contentInsets
 {
@@ -135,9 +186,20 @@
     }
 }
 
+
+
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    [_textfield setPlaceholder:placeholder];
+    if (placeholderAttributes)
+    {
+        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
+                                                                           attributes:placeholderAttributes];
+    }
+    else
+    {
+        [_textfield setPlaceholder:placeholder];
+    }
+    
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }

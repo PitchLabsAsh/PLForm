@@ -6,13 +6,24 @@
 //  Copyright (c) 2015 Ash Thwaites. All rights reserved.
 //
 
+@import Foundation;
 #import "PLAppDelegate.h"
+#import <PLForm/PLFormTextField.h>
 
 @implementation PLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // set some appearance
+    [[PLFormTextField appearance] setCornerRadius:2];
+    [[PLFormTextField appearance] setPlaceholderFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
+    [[PLFormTextField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormTextField appearance] setTextColor:[UIColor blackColor]];
+
+    
     return YES;
 }
 
