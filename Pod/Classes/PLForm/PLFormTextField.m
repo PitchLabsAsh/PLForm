@@ -136,11 +136,8 @@
     return placeholderAttributes[NSForegroundColorAttributeName];
 }
 
-
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
+-(void)removeInsetContraints
 {
-    _contentInsets = contentInsets;
-    
     for (NSLayoutConstraint *constraint in self.constraints)
     {
         if ((constraint.firstItem == _textfield) ||
@@ -149,15 +146,13 @@
             [self removeConstraint:constraint];
         }
     }
-    [_textfield removeConstraints:[_textfield constraints]];
-    
-//    // remove and readd the views to delete the constraints
-//    [self.textfield removeFromSuperview];
-//    [self.textfield removeConstraints:self.textfield.constraints];
-//    [self addSubview:self.textfield];
-    
-    // ensure contraints get rebuilt
     [self setNeedsUpdateConstraints];
+}
+
+- (void)setContentInsets:(UIEdgeInsets)contentInsets
+{
+    _contentInsets = contentInsets;
+    [self removeInsetContraints];
 }
 
 - (void)updateConstraints

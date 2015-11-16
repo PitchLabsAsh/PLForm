@@ -37,7 +37,7 @@
     [self addSubview:_floatingLabel];
 }
 
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
+-(void)removeInsetContraints
 {
     for (NSLayoutConstraint *constraint in self.constraints)
     {
@@ -47,12 +47,10 @@
             [self removeConstraint:constraint];
         }
     }
-    [_floatingLabel removeConstraints:[_floatingLabel constraints]];
     
     floatingLabelCenterConstraint = nil;
     textFieldCenterConstraint = nil;
-    
-    [super setContentInsets:contentInsets];
+    [super removeInsetContraints];
 }
 
 - (void)updateConstraints

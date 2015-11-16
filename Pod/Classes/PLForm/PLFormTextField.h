@@ -51,7 +51,7 @@ typedef enum {
 @property (nonatomic, strong) UIFont *placeholderFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 
-
+-(void)removeInsetContraints;
 -(void)textFieldDidChange;
 -(void)updateWithElement:(PLFormTextFieldElement*)element;
 

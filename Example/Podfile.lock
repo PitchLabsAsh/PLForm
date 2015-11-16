@@ -7,11 +7,13 @@ PODS:
   - PLForm (0.1.0):
     - PureLayout
   - PureLayout (3.0.1)
+  - Reveal-iOS-SDK (1.6.2)
   - TPKeyboardAvoiding (1.2.10)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
   - PLForm (from `../`)
+  - Reveal-iOS-SDK
   - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
@@ -22,6 +24,7 @@ SPEC CHECKSUMS:
   FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
   PLForm: ef064dd7ac7ad54f02bd3471ea58a0178a49e621
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TPKeyboardAvoiding: 614ebec846ec28b83d548769297fa5fb56468904
 
 COCOAPODS: 0.39.0
