@@ -65,7 +65,7 @@
     [_switchControl removeConstraints:_switchControl.constraints];
     [self addSubview:_switchControl];
     
-    // ensure contraints get rebuilt
+    // ensure constraints get rebuilt
     [self setNeedsUpdateConstraints];
 }
 

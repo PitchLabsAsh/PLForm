@@ -12,6 +12,7 @@
 @interface UIView (PLExtras)
 
 - (BOOL)hasConstraintsForView:(UIView*)view;
+- (void)removeConstraintsForView:(UIView*)view;
 
 @end
 

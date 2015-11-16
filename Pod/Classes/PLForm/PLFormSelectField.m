@@ -116,7 +116,7 @@
     [_valueLabel removeConstraints:_valueLabel.constraints];
     [self addSubview:_valueLabel];
     
-    // ensure contraints get rebuilt
+    // ensure constraints get rebuilt
     [self setNeedsUpdateConstraints];
 }
 

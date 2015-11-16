@@ -85,7 +85,7 @@
     [_placeholderLabel removeConstraints:_placeholderLabel.constraints];
     [self addSubview:_placeholderLabel];
     
-    // ensure contraints get rebuilt
+    // ensure constraints get rebuilt
     [self setNeedsUpdateConstraints];
 }
 

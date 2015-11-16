@@ -148,7 +148,7 @@
     [self.textfield removeConstraints:self.textfield.constraints];
     [self addSubview:self.textfield];
     
-    // ensure contraints get rebuilt
+    // ensure constraints get rebuilt
     [self setNeedsUpdateConstraints];
 }
 

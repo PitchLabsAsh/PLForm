@@ -24,4 +24,16 @@
     return NO;
 }
 
+- (void)removeConstraintsForView:(UIView*)view
+{
+    for (NSLayoutConstraint *constraint in self.constraints)
+    {
+        if ((constraint.firstItem == view) ||
+            (constraint.secondItem == view))
+        {
+            [self removeConstraint:constraint];
+        }
+    }
+}
+
 @end

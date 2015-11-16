@@ -8,7 +8,6 @@
 
 
 #import "PLFloatingLabelTextField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -32,25 +31,16 @@
     [super setup];
 
     _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _floatingLabel.font = [PLStyleSettings sharedInstance].h2Font;
     _floatingLabel.alpha = 0.0f;
     [self addSubview:_floatingLabel];
 }
 
--(void)removeInsetContraints
+-(void)removeInsetConstraints
 {
-    for (NSLayoutConstraint *constraint in self.constraints)
-    {
-        if ((constraint.firstItem == _floatingLabel) ||
-            (constraint.secondItem == _floatingLabel))
-        {
-            [self removeConstraint:constraint];
-        }
-    }
-    
+    [self removeConstraintsForView:_floatingLabel];
     floatingLabelCenterConstraint = nil;
     textFieldCenterConstraint = nil;
-    [super removeInsetContraints];
+    [super removeInsetConstraints];
 }
 
 -(void)setFloatingFont:(UIFont *)font

@@ -9,7 +9,6 @@
 
 
 #import "PLFormTextField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -70,7 +69,6 @@
     
     _textfield = [[UITextField alloc] initWithFrame:self.bounds];
     [_textfield addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
-    _textfield.font = [PLStyleSettings sharedInstance].h1Font;
     _textfield.delegate = self;
     [self addSubview:_textfield];
     
@@ -116,23 +114,16 @@
     return _placeholderColor;
 }
 
--(void)removeInsetContraints
+-(void)removeInsetConstraints
 {
-    for (NSLayoutConstraint *constraint in self.constraints)
-    {
-        if ((constraint.firstItem == _textfield) ||
-            (constraint.secondItem == _textfield))
-        {
-            [self removeConstraint:constraint];
-        }
-    }
+    [self removeConstraintsForView:_textfield];
     [self setNeedsUpdateConstraints];
 }
 
 - (void)setContentInsets:(UIEdgeInsets)contentInsets
 {
     _contentInsets = contentInsets;
-    [self removeInsetContraints];
+    [self removeInsetConstraints];
 }
 
 - (void)updateConstraints

@@ -50,7 +50,7 @@ typedef enum {
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 
--(void)removeInsetContraints;
+-(void)removeInsetConstraints;
 -(void)textFieldDidChange;
 -(void)updateWithElement:(PLFormTextFieldElement*)element;
 
