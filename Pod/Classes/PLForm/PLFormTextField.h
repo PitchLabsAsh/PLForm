@@ -10,6 +10,8 @@
 #import "PLStyleView.h"
 #import "PLFormElement.h"
 
+IB_DESIGNABLE
+
 typedef enum {
     BBTextInputTypeText,
     BBTextInputTypeNumber,
@@ -40,9 +42,9 @@ typedef enum {
 @property (nonatomic, strong) PLFormTextFieldElement* element;
 
 @property (nonatomic, readonly) UITextField *textfield;
-@property (nonatomic) /*IBInspectable*/ NSString *text;
-@property (nonatomic) /*IBInspectable*/ NSString *placeholder;
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) IBInspectable NSString *text;
+@property (nonatomic) IBInspectable NSString *placeholder;
+@property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;

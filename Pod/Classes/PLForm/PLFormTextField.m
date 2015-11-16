@@ -77,6 +77,7 @@
     [_textfield addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
     _textfield.font = [PLStyleSettings sharedInstance].h1Font;
     _textfield.delegate = self;
+    [self addSubview:_textfield];
     
     _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
 }
@@ -140,10 +141,20 @@
 {
     _contentInsets = contentInsets;
     
-    // remove and readd the views to delete the constraints
-    [self.textfield removeFromSuperview];
-    [self.textfield removeConstraints:self.textfield.constraints];
-    [self addSubview:self.textfield];
+    for (NSLayoutConstraint *constraint in self.constraints)
+    {
+        if ((constraint.firstItem == _textfield) ||
+            (constraint.secondItem == _textfield))
+        {
+            [self removeConstraint:constraint];
+        }
+    }
+    [_textfield removeConstraints:[_textfield constraints]];
+    
+//    // remove and readd the views to delete the constraints
+//    [self.textfield removeFromSuperview];
+//    [self.textfield removeConstraints:self.textfield.constraints];
+//    [self addSubview:self.textfield];
     
     // ensure contraints get rebuilt
     [self setNeedsUpdateConstraints];
@@ -151,7 +162,7 @@
 
 - (void)updateConstraints
 {
-    if (![self hasConstraintsForView:_textfield])
+    if (![self hasConstraintsForView:_textfield] && self.superview)
     {
         [_textfield autoPinEdgesToSuperviewEdgesWithInsets:_contentInsets];
     }

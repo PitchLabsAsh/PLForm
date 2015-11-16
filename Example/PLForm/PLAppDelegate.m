@@ -9,6 +9,7 @@
 @import Foundation;
 #import "PLAppDelegate.h"
 #import <PLForm/PLFormTextField.h>
+#import <PLForm/PLFloatingLabelTextField.h>
 
 @implementation PLAppDelegate
 
@@ -22,7 +23,9 @@
     [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
     [[PLFormTextField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
     [[PLFormTextField appearance] setTextColor:[UIColor blackColor]];
+//    [[PLFormTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
 
+    [[PLFloatingLabelTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
     
     return YES;
 }
