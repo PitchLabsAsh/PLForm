@@ -18,6 +18,7 @@
     // Override point for customization after application launch.
     
     // set some appearance
+    [[PLFormTextField appearance] setBackgroundColor:[UIColor whiteColor]];
     [[PLFormTextField appearance] setCornerRadius:2];
     [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
     [[PLFormTextField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];

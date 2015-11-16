@@ -24,11 +24,11 @@ FOUNDATION_EXPORT const unsigned char PLFormVersionString[];
 #import "PLFloatingLabelTextView.h"
 #import "PLFloatingLabelAutoCompleteField.h"
 #import "PLFormSwitchField.h"
+#import "PLFormPinField.h"
 
 // style helpers
 #import "PLStyleButton.h"
 #import "PLStyleView.h"
-#import "PLStyleSettings.h"
 
 // extras and utilities
 #import "PLExtras-UIView.h"
