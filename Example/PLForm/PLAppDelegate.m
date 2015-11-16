@@ -26,7 +26,9 @@
     [[PLFormTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
 
 //    [[PLFloatingLabelTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    
+    [[PLFloatingLabelTextField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [[PLFloatingLabelTextField appearance] setFloatingColor:[UIColor blueColor]];
+
     return YES;
 }
 

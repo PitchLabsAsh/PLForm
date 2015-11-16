@@ -104,6 +104,11 @@
     _textfield.textColor = color;
 }
 
+-(UIColor *)textColor
+{
+    return _textfield.textColor;
+}
+
 -(void)setPlaceholderFont:(UIFont *)font
 {
     if (placeholderAttributes == nil)

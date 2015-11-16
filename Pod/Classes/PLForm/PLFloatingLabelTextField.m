@@ -53,6 +53,26 @@
     [super removeInsetContraints];
 }
 
+-(void)setFloatingFont:(UIFont *)font
+{
+    _floatingLabel.font = font;
+}
+
+-(UIFont*)floatingFont
+{
+    return _floatingLabel.font;
+}
+
+-(void)setFloatingColor:(UIColor *)color
+{
+    _floatingLabel.textColor = color;
+}
+
+-(UIColor *)floatingColor
+{
+    return _floatingLabel.textColor;
+}
+
 - (void)updateConstraints
 {
     if (self.superview)
@@ -75,7 +95,7 @@
 
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    [self.textfield setPlaceholder:placeholder];
+    [super setPlaceholder:placeholder];
     _floatingLabel.text = placeholder;
     [self setNeedsLayout];
     [self layoutIfNeeded];
