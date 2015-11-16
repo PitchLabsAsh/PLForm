@@ -48,7 +48,6 @@ typedef enum {
 
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, strong) UIFont *placeholderFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 
 -(void)removeInsetContraints;

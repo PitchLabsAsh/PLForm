@@ -19,7 +19,6 @@
     
     // set some appearance
     [[PLFormTextField appearance] setCornerRadius:2];
-    [[PLFormTextField appearance] setPlaceholderFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
     [[PLFormTextField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
     [[PLFormTextField appearance] setTextColor:[UIColor blackColor]];

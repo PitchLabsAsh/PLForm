@@ -59,15 +59,10 @@
 
 @end
 
-@interface PLFormTextField ()
-{
-    NSMutableDictionary *placeholderAttributes;
-}
-
-@end
-
 
 @implementation PLFormTextField
+
+@synthesize placeholderColor = _placeholderColor;
 
 -(void)setup
 {
@@ -109,36 +104,16 @@
     return _textfield.textColor;
 }
 
--(void)setPlaceholderFont:(UIFont *)font
-{
-    if (placeholderAttributes == nil)
-        placeholderAttributes  = [NSMutableDictionary dictionaryWithCapacity:10];
-    
-    [placeholderAttributes setObject:font forKey:NSFontAttributeName];
-    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:placeholderAttributes];
-}
-
--(UIFont*)placeholderFont
-{
-    if (placeholderAttributes == nil)
-        return nil;
-    return placeholderAttributes[NSFontAttributeName];
-}
 
 -(void)setPlaceholderColor:(UIColor *)color
 {
-    if (placeholderAttributes == nil)
-        placeholderAttributes  = [NSMutableDictionary dictionaryWithCapacity:10];
-    
-    [placeholderAttributes setObject:color forKey:NSForegroundColorAttributeName];
-    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:placeholderAttributes];
+    _placeholderColor = color;
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
 }
 
--(UIFont*)placeholderColor
+-(UIColor*)placeholderColor
 {
-    if (placeholderAttributes == nil)
-        return nil;
-    return placeholderAttributes[NSForegroundColorAttributeName];
+    return _placeholderColor;
 }
 
 -(void)removeInsetContraints
@@ -201,10 +176,9 @@
 
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    if (placeholderAttributes)
+    if (_placeholderColor)
     {
-        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder
-                                                                           attributes:placeholderAttributes];
+        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
     }
     else
     {
