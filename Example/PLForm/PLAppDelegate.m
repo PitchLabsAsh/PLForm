@@ -10,6 +10,7 @@
 #import "PLAppDelegate.h"
 #import <PLForm/PLFormTextField.h>
 #import <PLForm/PLFloatingLabelTextField.h>
+#import <PLForm/PLFloatingLabelDateField.h>
 
 @implementation PLAppDelegate
 
@@ -25,9 +26,21 @@
     [[PLFormTextField appearance] setTextColor:[UIColor blackColor]];
     [[PLFormTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
 
-//    [[PLFloatingLabelTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
     [[PLFloatingLabelTextField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [[PLFloatingLabelTextField appearance] setFloatingColor:[UIColor blueColor]];
+
+    
+    
+    [[PLFormDateField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormDateField appearance] setCornerRadius:2];
+    [[PLFormDateField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormDateField appearance] setTextColor:[UIColor blueColor]];
+    [[PLFormDateField appearance] setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormDateField appearance] setValueColor:[UIColor blackColor]];
+    [[PLFormDateField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    
+    [[PLFloatingLabelDateField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [[PLFloatingLabelDateField appearance] setFloatingColor:[UIColor blueColor]];
 
     return YES;
 }

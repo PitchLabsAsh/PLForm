@@ -16,11 +16,11 @@
 @implementation PLFormDateFieldElement
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-+ (id)datePickerElementWithID:(NSInteger)elementID labelText:(NSString *)labelText date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode delegate:(id<PLFormElementDelegate>)delegate;
++ (id)datePickerElementWithID:(NSInteger)elementID title:(NSString *)title date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode delegate:(id<PLFormElementDelegate>)delegate;
 {
     PLFormDateFieldElement* element = [[self alloc] init];
     element.elementID = elementID;
-    element.labelText = labelText;
+    element.title = title;
     element.date = date;
     element.originalDate = date;
     element.datePickerMode = datePickerMode;
@@ -28,9 +28,9 @@
     return element;
 }
 
-+ (id)datePickerElementWithID:(NSInteger)elementID labelText:(NSString *)labelText date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode datePickerMinDate:(NSDate*)mindate datePickerMaxDate:(NSDate*)maxdate delegate:(id<PLFormElementDelegate>)delegate;
++ (id)datePickerElementWithID:(NSInteger)elementID title:(NSString *)title date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode datePickerMinDate:(NSDate*)mindate datePickerMaxDate:(NSDate*)maxdate delegate:(id<PLFormElementDelegate>)delegate;
 {
-    PLFormDateFieldElement* element = [self datePickerElementWithID:elementID labelText:labelText date:date datePickerMode:datePickerMode delegate:delegate];
+    PLFormDateFieldElement* element = [self datePickerElementWithID:elementID title:title date:date datePickerMode:datePickerMode delegate:delegate];
     element.minDate = mindate;
     element.maxDate = maxdate;
     return element;
@@ -85,7 +85,7 @@
 }
 
 @property (nonatomic, readwrite) UITextField *textfield;
-@property (nonatomic, readwrite) UILabel *placeholderLabel;
+@property (nonatomic, readwrite) UILabel *titleLabel;
 @property (nonatomic, readwrite) UILabel *valueLabel;
 @property (nonatomic, readwrite) UIDatePicker *datePicker;
 
@@ -99,14 +99,14 @@
     
     // create the value label
     _valueLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _valueLabel.font = [PLStyleSettings sharedInstance].h1Font;
     _valueLabel.textAlignment = NSTextAlignmentRight;
-    
+    [self addSubview:_valueLabel];
+
     // create a placeholder label.. same content as floating label but different style
-    _placeholderLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _placeholderLabel.font = [PLStyleSettings sharedInstance].h1Font;
-    _placeholderLabel.textAlignment = NSTextAlignmentLeft;
-    
+    _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_titleLabel];
+
     // hidden textfield to trigger the datepicker...
     _datePicker = [[UIDatePicker alloc] init];
     [_datePicker addTarget:self action:@selector(selectedDateDidChange) forControlEvents:UIControlEventValueChanged];
@@ -117,31 +117,96 @@
     [_textfield setInputView:_datePicker];
     [self addSubview:_textfield];
     
-    self.contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
-    
-    // here we should use a defined style not colour..
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderColor = [[PLStyleSettings sharedInstance] seperatorColor].CGColor;
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
     
     insideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInside:)];
     [self addGestureRecognizer:insideTapGestureRecognizer];
     outsideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOutside:)];
 }
 
+- (BOOL)canBecomeFirstResponder
+{
+    return [_textfield canBecomeFirstResponder];
+}
+
+- (BOOL)becomeFirstResponder
+{
+    return [_textfield becomeFirstResponder];
+}
+
+- (BOOL)resignFirstResponder
+{
+    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
+    [frontWindow removeGestureRecognizer:outsideTapGestureRecognizer];
+    return [_textfield resignFirstResponder];
+}
+
+
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _titleLabel.font = font;
+}
+
+-(UIFont*)font
+{
+    return _titleLabel.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _titleLabel.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _titleLabel.textColor;
+}
+
+-(void)setValueFont:(UIFont *)font
+{
+    _valueLabel.font = font;
+}
+
+-(UIFont*)valueFont
+{
+    return _valueLabel.font;
+}
+
+-(void)setValueColor:(UIColor *)color
+{
+    _valueLabel.textColor = color;
+}
+
+-(UIColor *)valueColor
+{
+    return _valueLabel.textColor;
+}
+
+-(void)setTitle:(NSString *)title
+{
+    _titleLabel.text = title;
+}
+
+-(NSString*)title
+{
+    return _titleLabel.text;
+}
+
+
+// handle constraints
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_titleLabel];
+    [self removeConstraintsForView:_valueLabel];
+    [self setNeedsUpdateConstraints];
+}
+
 - (void)setContentInsets:(UIEdgeInsets)contentInsets
 {
     _contentInsets = contentInsets;
-
-    [_placeholderLabel removeFromSuperview];
-    [_placeholderLabel removeConstraints:_placeholderLabel.constraints];
-    [self addSubview:_placeholderLabel];
-
-    [_valueLabel removeFromSuperview];
-    [_valueLabel removeConstraints:_valueLabel.constraints];
-    [self addSubview:_valueLabel];
-    
-    // ensure constraints get rebuilt
-    [self setNeedsUpdateConstraints];
+    [self removeInsetConstraints];
 }
 
 - (void)updateConstraints
@@ -153,11 +218,11 @@
         [_valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
     }
 
-    if (![self hasConstraintsForView:_placeholderLabel])
+    if (![self hasConstraintsForView:_titleLabel])
     {
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
-        [_placeholderLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+        [_titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
     }
     
     [super updateConstraints];
@@ -169,17 +234,11 @@
     [self resignFirstResponder];
 }
 
-- (void)setPlaceholder:(NSString *)placeholder
-{
-    _placeholderLabel.text = placeholder;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
 
 -(void)updateWithElement:(PLFormDateFieldElement*)element
 {
     self.element = element;
-    self.placeholder = element.labelText;
+    self.title = element.title;
     
     _datePicker.datePickerMode = element.datePickerMode;
     _datePicker.minimumDate = element.minDate;
@@ -207,23 +266,6 @@
     }
 }
 
-- (BOOL)canBecomeFirstResponder
-{
-    return [_textfield canBecomeFirstResponder];
-}
-
-- (BOOL)becomeFirstResponder
-{
-    return [_textfield becomeFirstResponder];
-}
-
-- (BOOL)resignFirstResponder
-{
-    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
-    [frontWindow removeGestureRecognizer:outsideTapGestureRecognizer];
-    return [_textfield resignFirstResponder];
-}
-
 
 -(void)selectedDateDidChange
 {
@@ -236,10 +278,6 @@
     }
 }
 
--(NSString*)text
-{
-    return _textfield.text;
-}
 
 
 @end

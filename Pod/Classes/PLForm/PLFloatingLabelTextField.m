@@ -35,13 +35,6 @@
     [self addSubview:_floatingLabel];
 }
 
--(void)removeInsetConstraints
-{
-    [self removeConstraintsForView:_floatingLabel];
-    floatingLabelCenterConstraint = nil;
-    textFieldCenterConstraint = nil;
-    [super removeInsetConstraints];
-}
 
 -(void)setFloatingFont:(UIFont *)font
 {
@@ -61,6 +54,14 @@
 -(UIColor *)floatingColor
 {
     return _floatingLabel.textColor;
+}
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_floatingLabel];
+    floatingLabelCenterConstraint = nil;
+    textFieldCenterConstraint = nil;
+    [super removeInsetConstraints];
 }
 
 - (void)updateConstraints
@@ -85,10 +86,8 @@
 
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    [super setPlaceholder:placeholder];
     _floatingLabel.text = placeholder;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [super setPlaceholder:placeholder];
 }
 
 -(void)updateWithElement:(PLFormTextFieldElement*)element

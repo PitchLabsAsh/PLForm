@@ -141,9 +141,6 @@
     {
         [_textfield setPlaceholder:placeholder];
     }
-    
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
 
 - (NSString*)placeholder
@@ -154,8 +151,6 @@
 -(void)setText:(NSString *)text
 {
     _textfield.text = text;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
 
 -(NSString*)text

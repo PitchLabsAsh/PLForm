@@ -12,10 +12,10 @@
 
 @interface PLFormDateFieldElement : PLFormElement
 
-+ (id)datePickerElementWithID:(NSInteger)elementID labelText:(NSString *)labelText date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode delegate:(id<PLFormElementDelegate>)delegate;
-+ (id)datePickerElementWithID:(NSInteger)elementID labelText:(NSString *)labelText date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode datePickerMinDate:(NSDate*)mindate datePickerMaxDate:(NSDate*)maxdate delegate:(id<PLFormElementDelegate>)delegate;
++ (id)datePickerElementWithID:(NSInteger)elementID title:(NSString *)title date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode delegate:(id<PLFormElementDelegate>)delegate;
++ (id)datePickerElementWithID:(NSInteger)elementID title:(NSString *)title date:(NSDate *)date datePickerMode:(UIDatePickerMode)datePickerMode datePickerMinDate:(NSDate*)mindate datePickerMaxDate:(NSDate*)maxdate delegate:(id<PLFormElementDelegate>)delegate;
 
-@property (nonatomic, copy) NSString *labelText;
+@property (nonatomic, copy) NSString *title;
 @property (nonatomic, retain) NSDate *date;
 @property (nonatomic, retain) NSDate *originalDate;
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
@@ -32,13 +32,20 @@
 @property (nonatomic, strong) PLFormDateFieldElement* element;
 
 @property (nonatomic, readonly) UITextField *textfield;
-@property (nonatomic, readonly) UILabel *placeholderLabel;
+@property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) UILabel *valueLabel;
 @property (nonatomic, readonly) UIDatePicker *datePicker;
 
-@property (nonatomic) /*IBInspectable*/ NSString *placeholder;
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic) NSString *title;
+@property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 
+@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *valueFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *valueColor UI_APPEARANCE_SELECTOR;
+
+
+-(void)removeInsetConstraints;
 -(void)selectedDateDidChange;
 -(void)updateWithElement:(PLFormDateFieldElement*)element;
 
