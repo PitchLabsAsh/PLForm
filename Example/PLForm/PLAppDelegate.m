@@ -14,6 +14,8 @@
 #import <PLForm/PLFloatingLabelSelectField.h>
 #import <PLForm/PLFloatingLabelTextView.h>
 #import <PLForm/PLFloatingLabelAutoCompleteField.h>
+#import <PLForm/PLFormPinField.h>
+
 
 @implementation PLAppDelegate
 
@@ -80,6 +82,16 @@
     
     [[PLFloatingLabelAutoCompleteField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [[PLFloatingLabelAutoCompleteField appearance] setFloatingColor:[UIColor blueColor]];
+    
+    
+    [[PLFormPinField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormPinField appearance] setCornerRadius:2];
+    [[PLFormPinDot appearance] setUnselectedBorderColor:[UIColor blackColor]];
+    [[PLFormPinDot appearance] setHighlightedBorderColor:[UIColor lightGrayColor]];
+    [[PLFormPinDot appearance] setSelectedBorderColor:[UIColor blueColor]];
+    [[PLFormPinDot appearance] setUnselectedColor:[UIColor clearColor]];
+    [[PLFormPinDot appearance] setHighlightedColor:[UIColor clearColor]];
+    [[PLFormPinDot appearance] setSelectedColor:[UIColor whiteColor]];
     
     return YES;
 }
