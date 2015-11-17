@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E77180E1BFB251300D2CA5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E77180D1BFB251300D2CA5B /* LaunchScreen.storyboard */; };
 		5EE26A0F1BF4C5990082493C /* PLFloatingExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26A0C1BF4C5990082493C /* PLFloatingExamplesViewController.m */; };
 		5EE26A101BF4C5990082493C /* PLNonFloatingExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26A0E1BF4C5990082493C /* PLNonFloatingExamplesViewController.m */; };
 		5EE26A161BF4C6240082493C /* PLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26A141BF4C6240082493C /* PLFormViewController.m */; };
@@ -44,6 +45,7 @@
 		33AFC0E3610E1552B7EFE6CD /* Pods-PLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Tests/Pods-PLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4CD2D1DA07F4EB29187D94F1 /* Pods_PLForm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PLForm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E71AF59A897AFCCFF2A490 /* PLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PLForm.podspec; path = ../PLForm.podspec; sourceTree = "<group>"; };
+		5E77180D1BFB251300D2CA5B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EE26A0B1BF4C5990082493C /* PLFloatingExamplesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLFloatingExamplesViewController.h; sourceTree = "<group>"; };
 		5EE26A0C1BF4C5990082493C /* PLFloatingExamplesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLFloatingExamplesViewController.m; sourceTree = "<group>"; };
 		5EE26A0D1BF4C5990082493C /* PLNonFloatingExamplesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLNonFloatingExamplesViewController.h; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				5EE26A0E1BF4C5990082493C /* PLNonFloatingExamplesViewController.m */,
 				5EE26A131BF4C6240082493C /* PLFormViewController.h */,
 				5EE26A141BF4C6240082493C /* PLFormViewController.m */,
+				5E77180D1BFB251300D2CA5B /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -292,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
+				5E77180E1BFB251300D2CA5B /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);

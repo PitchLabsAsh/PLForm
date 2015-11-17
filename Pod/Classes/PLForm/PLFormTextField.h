@@ -42,7 +42,7 @@ typedef enum {
 @property (nonatomic, strong) PLFormTextFieldElement* element;
 
 @property (nonatomic, readonly) UITextField *textfield;
-@property (nonatomic) IBInspectable NSString *text;
+@property (nonatomic) NSString *text;
 @property (nonatomic) IBInspectable NSString *placeholder;
 @property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 

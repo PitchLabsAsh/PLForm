@@ -81,7 +81,23 @@
     [self resignFirstResponder];
 }
 
+- (BOOL)canBecomeFirstResponder
+{
+    return [_textfield canBecomeFirstResponder];
+}
 
+- (BOOL)becomeFirstResponder
+{
+    return [_textfield becomeFirstResponder];
+}
+
+- (BOOL)resignFirstResponder
+{
+    return [_textfield resignFirstResponder];
+}
+
+
+// attributes
 -(void)setFont:(UIFont *)font
 {
     _textfield.font = font;
@@ -113,6 +129,40 @@
 {
     return _placeholderColor;
 }
+
+
+- (void)setPlaceholder:(NSString *)placeholder
+{
+    if (_placeholderColor)
+    {
+        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
+    }
+    else
+    {
+        [_textfield setPlaceholder:placeholder];
+    }
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
+- (NSString*)placeholder
+{
+    return _textfield.placeholder;
+}
+
+-(void)setText:(NSString *)text
+{
+    _textfield.text = text;
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
+-(NSString*)text
+{
+    return _textfield.text;
+}
+
 
 -(void)removeInsetConstraints
 {
@@ -164,44 +214,6 @@
 }
 
 
-
-- (void)setPlaceholder:(NSString *)placeholder
-{
-    if (_placeholderColor)
-    {
-        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
-    }
-    else
-    {
-        [_textfield setPlaceholder:placeholder];
-    }
-    
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
-
-- (BOOL)canBecomeFirstResponder
-{
-    return [_textfield canBecomeFirstResponder];
-}
-
-- (BOOL)becomeFirstResponder
-{
-    return [_textfield becomeFirstResponder];
-}
-
-- (BOOL)resignFirstResponder
-{
-    return [_textfield resignFirstResponder];
-}
-
--(void)setText:(NSString *)text
-{
-    _textfield.text = text;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
-
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -228,10 +240,6 @@
 
 
 
--(NSString*)text
-{
-    return _textfield.text;
-}
 
 
 @end
