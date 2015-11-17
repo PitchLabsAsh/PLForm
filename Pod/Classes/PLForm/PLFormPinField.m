@@ -49,8 +49,6 @@
 {
     [super setup];
 
-    self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
-
     //set up the reject character set
     NSMutableCharacterSet *numSet = [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
     [numSet formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -154,15 +152,15 @@
     {
         if (pinDot.tag < length)
         {
-            pinDot.state = BBPinDotStateSelected;
+            pinDot.state = PLPinDotStateSelected;
         }
         else if (((_textfield.isEditing) && pinDot.tag == length))
         {
-            pinDot.state = BBPinDotStateHighlighted;
+            pinDot.state = PLPinDotStateHighlighted;
         }
         else
         {
-            pinDot.state = BBPinDotStateUnselected;
+            pinDot.state = PLPinDotStateUnselected;
         }
     }
 }

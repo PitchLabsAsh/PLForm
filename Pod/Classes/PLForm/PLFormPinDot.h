@@ -10,16 +10,23 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
-    BBPinDotStateUnselected,
-    BBPinDotStateHighlighted,
-    BBPinDotStateSelected,
-} BBPinDotState;
+    PLPinDotStateUnselected,
+    PLPinDotStateHighlighted,
+    PLPinDotStateSelected,
+} PLPinDotState;
 
 
 @interface PLFormPinDot : UIView
 
-@property (nonatomic, assign) BBPinDotState state;
+@property (nonatomic, assign) PLPinDotState state;
 
--(void)setState:(BBPinDotState)state animated:(BOOL)animated;
+@property (nonatomic,strong) UIColor *unselectedColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *selectedColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *highlightedColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *unselectedBorderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *selectedBorderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *highlightedBorderColor UI_APPEARANCE_SELECTOR;
+
+-(void)setState:(PLPinDotState)state animated:(BOOL)animated;
 
 @end

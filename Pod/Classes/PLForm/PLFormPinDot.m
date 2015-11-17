@@ -8,17 +8,22 @@
 
 
 #import "PLFormPinDot.h"
-#import "PLStyleSettings.h"
 
 @implementation PLFormPinDot
 
 -(void)setup
 {
     self.layer.cornerRadius = self.bounds.size.width / 2.0f;
-    self.layer.borderWidth = 1.0f;
-    self.backgroundColor = [UIColor whiteColor];
+    self.layer.borderWidth = 1.0f;    
     
-    self.state = BBPinDotStateUnselected;
+    _unselectedColor = [UIColor blackColor];
+    _highlightedColor = [UIColor darkGrayColor];
+    _selectedColor = [UIColor whiteColor];
+    _unselectedBorderColor = [UIColor blackColor];
+    _highlightedBorderColor = [UIColor darkGrayColor];
+    _selectedBorderColor = [UIColor whiteColor];
+    
+    self.state = PLPinDotStateUnselected;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -46,29 +51,29 @@
 }
 
 
--(void)setState:(BBPinDotState)state
+-(void)setState:(PLPinDotState)state
 {
     [self setState:state animated:NO];
 }
 
--(void)setState:(BBPinDotState)state animated:(BOOL)animated
+-(void)setState:(PLPinDotState)state animated:(BOOL)animated
 {
     _state = state;
     
     void (^stateBlock)() = ^{
         switch (_state) {
                 
-            case BBPinDotStateUnselected:
-                self.layer.borderColor = [[PLStyleSettings sharedInstance] unselectedColor].CGColor;
-                self.backgroundColor = [UIColor clearColor];
+            case PLPinDotStateUnselected:
+                self.layer.borderColor = self.unselectedBorderColor.CGColor;
+                self.backgroundColor = self.unselectedColor;
                 break;
-            case BBPinDotStateHighlighted:
-                self.layer.borderColor = [[PLStyleSettings sharedInstance] highlightedColor].CGColor;
-                self.backgroundColor = [UIColor clearColor];
+            case PLPinDotStateHighlighted:
+                self.layer.borderColor = self.highlightedBorderColor.CGColor;
+                self.backgroundColor = self.highlightedColor;
                 break;
-            case BBPinDotStateSelected:
-                self.layer.borderColor = [[PLStyleSettings sharedInstance] selectedColor].CGColor;
-                self.backgroundColor = [UIColor whiteColor];
+            case PLPinDotStateSelected:
+                self.layer.borderColor = self.selectedBorderColor.CGColor;
+                self.backgroundColor = self.selectedColor;
                 break;
             default:
                 break;
