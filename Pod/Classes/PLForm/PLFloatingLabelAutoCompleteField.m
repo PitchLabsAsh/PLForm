@@ -7,7 +7,6 @@
 //
 
 #import "PLFloatingLabelAutoCompleteField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -27,12 +26,42 @@
 
 -(void)setup
 {
-    _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _floatingLabel.font = [PLStyleSettings sharedInstance].h2Font;
-    _floatingLabel.alpha = 0.0f;
-    
     [super setup];
+
+    _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _floatingLabel.alpha = 0.0f;
+    [self addSubview:_floatingLabel];
 }
+
+-(void)setFloatingFont:(UIFont *)font
+{
+    _floatingLabel.font = font;
+}
+
+-(UIFont*)floatingFont
+{
+    return _floatingLabel.font;
+}
+
+-(void)setFloatingColor:(UIColor *)color
+{
+    _floatingLabel.textColor = color;
+}
+
+-(UIColor *)floatingColor
+{
+    return _floatingLabel.textColor;
+}
+
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_floatingLabel];
+    floatingLabelCenterConstraint = nil;
+    textFieldCenterConstraint = nil;
+    [super removeInsetConstraints];
+}
+
 
 - (void)setContentInsets:(UIEdgeInsets)contentInsets
 {
@@ -47,28 +76,31 @@
     [self addSubview:_floatingLabel];
 }
 
+
 - (void)updateConstraints
 {
-    if (![self hasConstraintsForView:_floatingLabel])
+    if (self.superview)
     {
-        [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    if (![self hasConstraintsForView:self.textfield])
-    {
-        [self.textfield autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        [self.textfield autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
-        textFieldCenterConstraint = [self.textfield autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        if (![self hasConstraintsForView:_floatingLabel])
+        {
+            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+        if (![self hasConstraintsForView:self.textfield])
+        {
+            [self.textfield autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            [self.textfield autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
+            textFieldCenterConstraint = [self.textfield autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
     }
     [super updateConstraints];
 }
 
+
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    [self.textfield setPlaceholder:placeholder];
     _floatingLabel.text = placeholder;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [super setPlaceholder:placeholder];
 }
 
 -(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element

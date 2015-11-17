@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-//IB_DESIGNABLE
+IB_DESIGNABLE
 
 @interface PLStyleButton : UIButton
 
-@property (nonatomic) /*IBInspectable*/ UIColor *borderColor;
-@property (nonatomic) /*IBInspectable*/ CGFloat borderWidth;
-@property (nonatomic) /*IBInspectable*/ CGFloat cornerRadius;
+@property (nonatomic) IBInspectable UIColor *borderColor;
+@property (nonatomic) IBInspectable CGFloat borderWidth;
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
 
 -(void)setup;
 

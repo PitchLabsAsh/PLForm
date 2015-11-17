@@ -13,6 +13,7 @@
 #import <PLForm/PLFloatingLabelDateField.h>
 #import <PLForm/PLFloatingLabelSelectField.h>
 #import <PLForm/PLFloatingLabelTextView.h>
+#import <PLForm/PLFloatingLabelAutoCompleteField.h>
 
 @implementation PLAppDelegate
 
@@ -67,7 +68,19 @@
     
     [[PLFloatingLabelTextView appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [[PLFloatingLabelTextView appearance] setFloatingColor:[UIColor blueColor]];
-     
+    
+    
+    
+    [[PLFormAutoCompleteField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormAutoCompleteField appearance] setCornerRadius:2];
+    [[PLFormAutoCompleteField appearance] setPlaceholderColor:[UIColor blueColor]];
+    [[PLFormAutoCompleteField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormAutoCompleteField appearance] setTextColor:[UIColor blackColor]];
+    [[PLFormAutoCompleteField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    
+    [[PLFloatingLabelAutoCompleteField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [[PLFloatingLabelAutoCompleteField appearance] setFloatingColor:[UIColor blueColor]];
+    
     return YES;
 }
 

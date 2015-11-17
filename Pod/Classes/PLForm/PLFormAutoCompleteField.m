@@ -7,22 +7,15 @@
 //
 
 #import "PLFormAutoCompleteField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
-@interface BBAutoCompleteCell : UICollectionViewCell
 
-@property (nonatomic, strong) UILabel *label;
-@property (nonatomic, strong) UIView *separatorView;
-
-@end;
-
-@implementation BBAutoCompleteCell
+@implementation PLAutoCompleteCell
 
 -(id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        self.backgroundColor = [PLStyleSettings sharedInstance].unselectedColor;
+        self.backgroundColor = [UIColor lightGrayColor];
         
         float sortaPixel = 1.0/[UIScreen mainScreen].scale;
         _separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sortaPixel, self.frame.size.height)];        
@@ -32,7 +25,6 @@
         
         // add the label, and the constraints to center it and margins to either side
         _label = [[UILabel alloc] initWithFrame:self.bounds];
-        _label.font = [PLStyleSettings sharedInstance].h1Font;
         _label.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_label];
         
@@ -43,24 +35,46 @@
     return self;
 }
 
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _label.font = font;
+}
+
+-(UIFont*)font
+{
+    return _label.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _label.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _label.textColor;
+}
+
+
 @end
 
 
 @implementation PLFormAutoCompleteFieldElement
 
-+ (id)selectElementWithID:(NSInteger)elementID labelText:(NSString *)labelText values:(NSArray*)values delegate:(id<PLFormElementDelegate>)delegate;
++ (id)selectElementWithID:(NSInteger)elementID placeholderText:(NSString *)placeholderText values:(NSArray*)values delegate:(id<PLFormElementDelegate>)delegate;
 {
     PLFormAutoCompleteFieldElement *element = [super elementWithID:elementID delegate:delegate];
-    element.labelText = labelText;
+    element.placeholderText = placeholderText;
     element.values = values;
     element.index = -1;
     element.originalIndex = -1;
     return element;
 }
 
-+ (id)selectElementWithID:(NSInteger)elementID labelText:(NSString *)labelText values:(NSArray*)values index:(NSInteger)index delegate:(id<PLFormElementDelegate>)delegate;
++ (id)selectElementWithID:(NSInteger)elementID placeholderText:(NSString *)placeholderText values:(NSArray*)values index:(NSInteger)index delegate:(id<PLFormElementDelegate>)delegate;
 {
-    PLFormAutoCompleteFieldElement *element = [self selectElementWithID:elementID labelText:labelText values:values delegate:delegate];
+    PLFormAutoCompleteFieldElement *element = [self selectElementWithID:elementID placeholderText:placeholderText values:values delegate:delegate];
     element.index = index;
     element.originalIndex = index;
     return element;
@@ -101,14 +115,16 @@
 
 @implementation PLFormAutoCompleteField
 
+@synthesize placeholderColor = _placeholderColor;
+
 -(void)setup
 {
     [super setup];
     
     _textfield = [[UITextField alloc] initWithFrame:self.bounds];
     [_textfield addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
-    _textfield.font = [PLStyleSettings sharedInstance].h1Font;
     _textfield.delegate = self;
+    [self addSubview:_textfield];
     
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
@@ -121,67 +137,19 @@
     [_collectionView setDataSource:self];
     [_collectionView setDelegate:self];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
-    [_collectionView registerClass:[BBAutoCompleteCell class] forCellWithReuseIdentifier:@"BBAutoCompleteCell"];
+    [_collectionView registerClass:[PLAutoCompleteCell class] forCellWithReuseIdentifier:@"PLAutoCompleteCell"];
+    _collectionView.backgroundColor = [UIColor lightGrayColor];
 
-    _collectionView.backgroundColor = [PLStyleSettings sharedInstance].unselectedColor;
+//    _collectionView.backgroundColor = [PLStyleSettings sharedInstance].unselectedColor;
     _textfield.inputAccessoryView = _collectionView;
     
-    self.contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
-    
-    // here we should use a defined style not colour..
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderColor = [[PLStyleSettings sharedInstance] seperatorColor].CGColor;
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);    
 }
 
 
 -(void)dealloc
 {
     [self resignFirstResponder];
-}
-
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
-{
-    _contentInsets = contentInsets;
-    
-    // remove and readd the views to delete the constraints
-    [self.textfield removeFromSuperview];
-    [self.textfield removeConstraints:self.textfield.constraints];
-    [self addSubview:self.textfield];
-    
-    // ensure constraints get rebuilt
-    [self setNeedsUpdateConstraints];
-}
-
-- (void)updateConstraints
-{
-    if (![self hasConstraintsForView:_textfield])
-    {
-        [_textfield autoPinEdgesToSuperviewEdgesWithInsets:_contentInsets];
-    }
-    
-    [super updateConstraints];
-}
-
-
--(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element
-{
-    self.element = element;
-    self.placeholder = element.labelText;
-    
-    _textfield.text = [element valueAsString];
-    _textfield.keyboardType = UIKeyboardTypeDefault;
-    _textfield.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
-    
-    [self updateSuggestions];
-    [_collectionView reloadData];
-}
-
-- (void)setPlaceholder:(NSString *)placeholder
-{
-    [_textfield setPlaceholder:placeholder];
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -198,6 +166,107 @@
 {
     return [_textfield resignFirstResponder];
 }
+
+
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _textfield.font = font;
+}
+
+-(UIFont*)font
+{
+    return _textfield.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _textfield.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _textfield.textColor;
+}
+
+-(void)setPlaceholderColor:(UIColor *)color
+{
+    _placeholderColor = color;
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
+}
+
+-(UIColor*)placeholderColor
+{
+    return _placeholderColor;
+}
+
+
+- (void)setPlaceholder:(NSString *)placeholder
+{
+    if (_placeholderColor)
+    {
+        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
+    }
+    else
+    {
+        [_textfield setPlaceholder:placeholder];
+    }
+}
+
+- (NSString*)placeholder
+{
+    return _textfield.placeholder;
+}
+
+-(void)setText:(NSString *)text
+{
+    _textfield.text = text;
+}
+
+-(NSString*)text
+{
+    return _textfield.text;
+}
+
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_textfield];
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setContentInsets:(UIEdgeInsets)contentInsets
+{
+    _contentInsets = contentInsets;
+    [self removeInsetConstraints];
+}
+
+- (void)updateConstraints
+{
+    if (![self hasConstraintsForView:_textfield] && self.superview)
+    {
+        [_textfield autoPinEdgesToSuperviewEdgesWithInsets:_contentInsets];
+    }
+    [super updateConstraints];
+}
+
+
+-(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element
+{
+    self.element = element;
+    self.placeholder = element.placeholderText;
+    self.text = element.value;
+    
+    _textfield.text = [element valueAsString];
+    _textfield.keyboardType = UIKeyboardTypeDefault;
+    _textfield.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
+    
+    [self updateSuggestions];
+    [_collectionView reloadData];
+}
+
+
 
 -(void)updateSuggestions
 {
@@ -261,7 +330,7 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BBAutoCompleteCell *cell = (BBAutoCompleteCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"BBAutoCompleteCell" forIndexPath:indexPath];
+    PLAutoCompleteCell *cell = (PLAutoCompleteCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"PLAutoCompleteCell" forIndexPath:indexPath];
     cell.label.text = autoCompleteSuggestions[indexPath.row];
     cell.label.font = self.textfield.font;
     cell.separatorView.hidden = (indexPath.row==0);

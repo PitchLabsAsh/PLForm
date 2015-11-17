@@ -12,7 +12,8 @@
 @interface PLFloatingLabelAutoCompleteField : PLFormAutoCompleteField
 
 @property (nonatomic, readonly) UILabel *floatingLabel;
-@property (nonatomic) NSString *text;
-@property (nonatomic) NSString *placeholder;
+
+@property (nonatomic, strong) UIFont *floatingFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *floatingColor UI_APPEARANCE_SELECTOR;
 
 @end

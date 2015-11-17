@@ -45,7 +45,7 @@
     selectFieldElement = [PLFormSelectFieldElement selectElementWithID:1 title:@"Select Option" values:@[@"1 minute",@"5 minutes",@"15 minutes",@"1 hour"] index:0 insertBlank:YES delegate:self];
     dateFieldElement = [PLFormDateFieldElement datePickerElementWithID:2 title:@"Enter a date" date:nil datePickerMode:UIDatePickerModeDate delegate:nil];
     textViewElement = [PLFormTextViewElement textViewElementWithID:3 placeholderText:@"Enter some text" value:nil delegate:nil];
-    autoCompleteElement = [PLFormAutoCompleteFieldElement selectElementWithID:1 labelText:@"Select Option" values:@[@"Dog",@"Cat",@"Rabbity Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse"] delegate:self];
+    autoCompleteElement = [PLFormAutoCompleteFieldElement selectElementWithID:1 placeholderText:@"Select Option" values:@[@"Dog",@"Cat",@"Rabbity Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse"] delegate:self];
     autoCompleteElement.displayAllWhenBlank = YES;
     autoCompleteElement.indexRequired = YES;
     pinElement = [PLFormPinFieldElement pinFieldElementWithID:4 pinLength:5 delegate:self];
