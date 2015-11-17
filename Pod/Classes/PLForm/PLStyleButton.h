@@ -12,9 +12,9 @@ IB_DESIGNABLE
 
 @interface PLStyleButton : UIButton
 
-@property (nonatomic) IBInspectable UIColor *borderColor;
-@property (nonatomic) IBInspectable CGFloat borderWidth;
-@property (nonatomic) IBInspectable CGFloat cornerRadius;
+@property (nonatomic) IBInspectable UIColor *borderColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic) IBInspectable CGFloat borderWidth UI_APPEARANCE_SELECTOR;
+@property (nonatomic) IBInspectable CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
 
 -(void)setup;
 

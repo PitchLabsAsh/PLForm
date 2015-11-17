@@ -9,19 +9,18 @@
 
 #import "PLFormSwitchField.h"
 #import "PureLayout.h"
-#import "PLStyleSettings.h"
 #import "PLExtras-UIView.h"
 
 @implementation PLFormSwitchFieldElement
 
-+ (instancetype)switchFieldElementWithID:(NSInteger)elementID labelText:(NSString *)labelText value:(BOOL)value delegate:(id<PLFormElementDelegate>)delegate;
++ (instancetype)switchFieldElementWithID:(NSInteger)elementID title:(NSString *)title value:(BOOL)value delegate:(id<PLFormElementDelegate>)delegate;
 {
     PLFormSwitchFieldElement* element = [PLFormSwitchFieldElement new];
     element.elementID = elementID;
     element.delegate = delegate;
     element.value = value;
     element.originalValue = value;
-    element.labelText = labelText;
+    element.title = title;
     return element;
 }
 
@@ -39,62 +38,21 @@
 {
     [super setup];
     
-    self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
-
-    _valueLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _valueLabel.font = [PLStyleSettings sharedInstance].h1Font;
-    _valueLabel.textAlignment = NSTextAlignmentLeft;
+    _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_titleLabel];
     
     _switchControl = [[UISwitch alloc] initWithFrame:self.bounds];
     [_switchControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    self.contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
-}
-
-
-
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
-{
-    _contentInsets = contentInsets;
-    
-    [_valueLabel removeFromSuperview];
-    [_valueLabel removeConstraints:_valueLabel.constraints];
-    [self addSubview:_valueLabel];
-
-    [_switchControl removeFromSuperview];
-    [_switchControl removeConstraints:_switchControl.constraints];
     [self addSubview:_switchControl];
     
-    // ensure constraints get rebuilt
-    [self setNeedsUpdateConstraints];
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
 }
 
-- (void)updateConstraints
+-(void)dealloc
 {
-    if (![self hasConstraintsForView:_valueLabel])
-    {
-        [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right + _switchControl.bounds.size.width];
-        [_valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    
-    if (![self hasConstraintsForView:_switchControl])
-    {
-        [_switchControl autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
-        [_switchControl autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    
-    [super updateConstraints];
+    [self resignFirstResponder];
 }
-
--(void)updateWithElement:(PLFormSwitchFieldElement*)element
-{
-    self.element = element;
-    
-    _valueLabel.text = element.labelText;
-    _switchControl.on = element.value;
-}
-
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -110,6 +68,49 @@
 {
     return [_switchControl resignFirstResponder];
 }
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_titleLabel];
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setContentInsets:(UIEdgeInsets)contentInsets
+{
+    _contentInsets = contentInsets;
+    [self removeInsetConstraints];
+}
+
+- (void)updateConstraints
+{
+    if (self.superview)
+    {
+        if (![self hasConstraintsForView:_titleLabel])
+        {
+            [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+            [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right + _switchControl.bounds.size.width];
+            [_titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+        
+        if (![self hasConstraintsForView:_switchControl])
+        {
+            [_switchControl autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+            [_switchControl autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+    }
+    
+    [super updateConstraints];
+}
+
+
+
+-(void)updateWithElement:(PLFormSwitchFieldElement*)element
+{
+    self.element = element;
+    _titleLabel.text = element.title;
+    _switchControl.on = element.value;
+}
+
 
 - (IBAction)valueChanged:(UISwitch *)sender {
     _element.value = sender.on;

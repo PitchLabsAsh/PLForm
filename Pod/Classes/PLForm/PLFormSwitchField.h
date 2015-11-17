@@ -13,11 +13,11 @@
 
 @interface PLFormSwitchFieldElement : PLFormElement
 
-+ (instancetype)switchFieldElementWithID:(NSInteger)elementID labelText:(NSString *)labelText value:(BOOL)value delegate:(id<PLFormElementDelegate>)delegate;
++ (instancetype)switchFieldElementWithID:(NSInteger)elementID title:(NSString *)title value:(BOOL)value delegate:(id<PLFormElementDelegate>)delegate;
 
 @property (nonatomic, assign) BOOL value;
 @property (nonatomic, assign) BOOL originalValue;
-@property (nonatomic, copy) NSString *labelText;
+@property (nonatomic, copy) NSString *title;
 
 @end
 
@@ -26,8 +26,11 @@
 
 @property (nonatomic, strong) PLFormSwitchFieldElement* element;
 @property (nonatomic, strong) UISwitch *switchControl;
-@property (nonatomic, readonly) UILabel *valueLabel;
-@property (nonatomic) UIEdgeInsets contentInsets;
+@property (nonatomic, readonly) UILabel *titleLabel;
+
+@property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
 
 -(void)updateWithElement:(PLFormSwitchFieldElement*)element;
 

@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    switchFormElement = [PLFormSwitchFieldElement switchFieldElementWithID:0 labelText:@"Pre populated" value:NO delegate:self];
+    switchFormElement = [PLFormSwitchFieldElement switchFieldElementWithID:0 title:@"Pre populated" value:NO delegate:self];
     [_switchField updateWithElement:switchFormElement];
 }
 

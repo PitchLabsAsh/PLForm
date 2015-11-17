@@ -15,6 +15,7 @@
 #import <PLForm/PLFloatingLabelTextView.h>
 #import <PLForm/PLFloatingLabelAutoCompleteField.h>
 #import <PLForm/PLFormPinField.h>
+#import <PLForm/PLFormSwitchField.h>
 
 
 @implementation PLAppDelegate
@@ -93,6 +94,10 @@
     [[PLFormPinDot appearance] setHighlightedColor:[UIColor clearColor]];
     [[PLFormPinDot appearance] setSelectedColor:[UIColor whiteColor]];
     
+    
+    [[PLFormSwitchField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormSwitchField appearance] setCornerRadius:2];
+
     return YES;
 }
 
