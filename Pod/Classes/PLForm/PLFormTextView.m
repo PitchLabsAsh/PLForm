@@ -8,7 +8,6 @@
 
 
 #import "PLFormTextView.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -49,21 +48,18 @@
 {
     [super setup];
     
-    _placeholderLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _placeholderLabel.font = [PLStyleSettings sharedInstance].h1Font;
-    _placeholderLabel.textColor = [[PLStyleSettings sharedInstance] unselectedColor];
-
     _textview = [[UITextView alloc] initWithFrame:self.bounds];
-    _textview.font = [PLStyleSettings sharedInstance].h1Font;
     _textview.delegate = self;
     _textview.textContainerInset = UIEdgeInsetsZero;
     _textview.textContainer.lineFragmentPadding = 0;
+    _textview.backgroundColor = [UIColor clearColor];
+    [self addSubview:_textview];
     
-    self.contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    
-    // here we should use a defined style not colour..
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderColor = [[PLStyleSettings sharedInstance] seperatorColor].CGColor;
+    _placeholderLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _placeholderLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_placeholderLabel];
+
+    _contentInsets = UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 
@@ -71,47 +67,6 @@
 {
     [self resignFirstResponder];
 }
-
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
-{
-    _contentInsets = contentInsets;
-    
-    // remove and readd the views to delete the constraints
-    [_textview removeFromSuperview];
-    [_textview removeConstraints:_textview.constraints];
-    [self addSubview:_textview];
-
-    [_placeholderLabel removeFromSuperview];
-    [_placeholderLabel removeConstraints:_placeholderLabel.constraints];
-    [self addSubview:_placeholderLabel];
-    
-    // ensure constraints get rebuilt
-    [self setNeedsUpdateConstraints];
-}
-
-- (void)updateConstraints
-{
-    if (![self hasConstraintsForView:_textview])
-    {
-        [_textview autoPinEdgesToSuperviewEdgesWithInsets:_contentInsets];
-    }
-    if (![self hasConstraintsForView:_placeholderLabel])
-    {
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:_contentInsets.top];
-    }
-    [super updateConstraints];
-}
-
-
--(void)updateWithElement:(PLFormTextViewElement*)element
-{
-    self.element = element;
-    self.text = element.value;
-    self.placeholder = element.placeholderText;
-    self.placeholderLabel.hidden = (_textview.text.length >0);
-}
-
 
 - (BOOL)canBecomeFirstResponder
 {
@@ -128,19 +83,112 @@
     return [_textview resignFirstResponder];
 }
 
+
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _textview.font = font;
+    _placeholderLabel.font = font;
+}
+
+-(UIFont*)font
+{
+    return _textview.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _textview.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _textview.textColor;
+}
+
+-(void)setPlaceholderFont:(UIFont *)font
+{
+    _placeholderLabel.font = font;
+}
+
+-(UIFont*)placeholderFont
+{
+    return _placeholderLabel.font;
+}
+
+-(void)setPlaceholderColor:(UIColor *)color
+{
+    _placeholderLabel.textColor = color;
+}
+
+-(UIColor *)placeholderColor
+{
+    return _placeholderLabel.textColor;
+}
+
+
 -(void)setText:(NSString *)text
 {
     _textview.text = text;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+}
+
+-(NSString*)text
+{
+    return _textview.text;
 }
 
 - (void)setPlaceholder:(NSString *)placeholder
 {
     _placeholderLabel.text = placeholder;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
+
+-(NSString*)placeholder
+{
+    return _placeholderLabel.text;
+}
+
+
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_textview];
+    [self removeConstraintsForView:_placeholderLabel];
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setContentInsets:(UIEdgeInsets)contentInsets
+{
+    _contentInsets = contentInsets;
+    [self removeInsetConstraints];
+}
+
+- (void)updateConstraints
+{
+    if (self.superview)
+    {
+        if (![self hasConstraintsForView:_textview])
+        {
+            [_textview autoPinEdgesToSuperviewEdgesWithInsets:_contentInsets];
+        }
+        if (![self hasConstraintsForView:_placeholderLabel])
+        {
+            [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+            [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:_contentInsets.top];
+        }
+    }
+    [super updateConstraints];
+}
+
+
+-(void)updateWithElement:(PLFormTextViewElement*)element
+{
+    self.element = element;
+    self.text = element.value;
+    self.placeholder = element.placeholderText;
+    self.placeholderLabel.hidden = (_textview.text.length >0);
+}
+
+
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -166,13 +214,6 @@
     {
         [(id<PLFormElementDelegate>)self.element.delegate formElementDidEndEditing:self.element];
     }
-}
-
-
-
--(NSString*)text
-{
-    return _textview.text;
 }
 
 

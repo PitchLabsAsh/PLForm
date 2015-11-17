@@ -11,7 +11,10 @@
 
 @interface PLFloatingLabelTextView : PLFormTextView
 
-@property (nonatomic) CGFloat floatingLabelOffset;
 @property (nonatomic, readonly) UILabel *floatingLabel;
+
+@property (nonatomic,assign) CGFloat floatingLabelOffset UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *floatingFont UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *floatingColor UI_APPEARANCE_SELECTOR;
 
 @end

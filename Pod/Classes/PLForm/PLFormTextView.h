@@ -27,10 +27,16 @@
 
 @property (nonatomic, readonly) UITextView *textview;
 @property (nonatomic, readonly) UILabel *placeholderLabel;
-@property (nonatomic) /*IBInspectable*/ NSString *text;
-@property (nonatomic) /*IBInspectable*/ NSString *placeholder;
-@property (nonatomic) UIEdgeInsets contentInsets;
 
+@property (nonatomic) NSString *text;
+@property (nonatomic) NSString *placeholder;
+@property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
+
+-(void)removeInsetConstraints;
 -(void)updateWithElement:(PLFormTextViewElement*)element;
 
 @end

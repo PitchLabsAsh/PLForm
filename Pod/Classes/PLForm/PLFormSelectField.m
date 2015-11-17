@@ -187,18 +187,21 @@
 
 - (void)updateConstraints
 {
-    if (![self hasConstraintsForView:_valueLabel])
+    if (self.superview)
     {
-        [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
-        [_valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    
-    if (![self hasConstraintsForView:_titleLabel])
-    {
-        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
-        [_titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        if (![self hasConstraintsForView:_valueLabel])
+        {
+            [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+            [_valueLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+            [_valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+        
+        if (![self hasConstraintsForView:_titleLabel])
+        {
+            [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+            [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+            [_titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
     }
     
     [super updateConstraints];

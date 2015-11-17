@@ -8,7 +8,6 @@
 
 
 #import "PLFloatingLabelTextView.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -27,51 +26,31 @@
 {
     // create the additional floating label
     _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _floatingLabel.font = [PLStyleSettings sharedInstance].h2Font;
     _floatingLabel.alpha = 0.0f;
+    [self addSubview:_floatingLabel];
     
     _floatingLabelOffset = 18.0f;
     [super setup];
 }
 
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
+-(void)setFloatingFont:(UIFont *)font
 {
-    [super setContentInsets:contentInsets];
-    
-    floatingLabelCenterConstraint = nil;
-    placeholderLabelTopConstraint = nil;
-    textviewTopConstraint = nil;
-//    valueLabelCenterConstraint = nil;
-    
-    // remove and readd the views to delete the constraints
-    [_floatingLabel removeFromSuperview];
-    [_floatingLabel removeConstraints:_floatingLabel.constraints];
-    [self addSubview:_floatingLabel];
+    _floatingLabel.font = font;
 }
 
-
-
-- (void)updateConstraints
+-(UIFont*)floatingFont
 {
-    if (![self hasConstraintsForView:self.textview])
-    {
-        textviewTopConstraint = [self.textview autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:self.contentInsets.top];
-        [self.textview autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:self.contentInsets.left];
-        [self.textview autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:self.contentInsets.bottom];
-        [self.textview autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:self.contentInsets.right];
-    }
-    if (![self hasConstraintsForView:self.placeholderLabel])
-    {
-        [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        placeholderLabelTopConstraint = [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:self.contentInsets.top];
-    }
-    if (![self hasConstraintsForView:_floatingLabel])
-    {
-        [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.placeholderLabel withOffset:0];
-    }
+    return _floatingLabel.font;
+}
 
-    [super updateConstraints];
+-(void)setFloatingColor:(UIColor *)color
+{
+    _floatingLabel.textColor = color;
+}
+
+-(UIColor *)floatingColor
+{
+    return _floatingLabel.textColor;
 }
 
 -(void)setPlaceholder:(NSString *)placeholder
@@ -79,6 +58,43 @@
     _floatingLabel.text = placeholder;
     [super setPlaceholder:placeholder];
 }
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_floatingLabel];
+    placeholderLabelTopConstraint = nil;
+    textviewTopConstraint = nil;
+    floatingLabelCenterConstraint = nil;
+    [super removeInsetConstraints];
+}
+
+
+- (void)updateConstraints
+{
+    if (self.superview)
+    {
+        if (![self hasConstraintsForView:self.textview])
+        {
+            textviewTopConstraint = [self.textview autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:self.contentInsets.top];
+            [self.textview autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:self.contentInsets.left];
+            [self.textview autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:self.contentInsets.bottom];
+            [self.textview autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:self.contentInsets.right];
+        }
+        if (![self hasConstraintsForView:self.placeholderLabel])
+        {
+            [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            placeholderLabelTopConstraint = [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:self.contentInsets.top];
+        }
+        if (![self hasConstraintsForView:_floatingLabel])
+        {
+            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.placeholderLabel withOffset:0];
+        }
+    }
+    [super updateConstraints];
+}
+
+
 
 -(void)updateWithElement:(PLFormTextViewElement*)element
 {
