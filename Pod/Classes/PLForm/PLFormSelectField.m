@@ -8,34 +8,33 @@
 
 
 #import "PLFormSelectField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
 @implementation PLFormSelectFieldElement
 
-+ (id)selectElementWithID:(NSInteger)elementID labelText:(NSString *)labelText values:(NSArray*)values delegate:(id<PLFormElementDelegate>)delegate;
++ (id)selectElementWithID:(NSInteger)elementID title:(NSString *)title values:(NSArray*)values delegate:(id<PLFormElementDelegate>)delegate;
 {
     PLFormSelectFieldElement *element = [super elementWithID:elementID delegate:delegate];
-    element.labelText = labelText;
+    element.title = title;
     element.values = values;
     element.index = -1;
     element.originalIndex = -1;
     return element;
 }
 
-+ (id)selectElementWithID:(NSInteger)elementID labelText:(NSString *)labelText values:(NSArray*)values index:(NSInteger)index delegate:(id<PLFormElementDelegate>)delegate;
++ (id)selectElementWithID:(NSInteger)elementID title:(NSString *)title values:(NSArray*)values index:(NSInteger)index delegate:(id<PLFormElementDelegate>)delegate;
 {
-    PLFormSelectFieldElement *element = [self selectElementWithID:elementID labelText:labelText values:values delegate:delegate];
+    PLFormSelectFieldElement *element = [self selectElementWithID:elementID title:title values:values delegate:delegate];
     element.index = index;
     element.originalIndex = index;
     return element;
 }
 
-+ (id)selectElementWithID:(NSInteger)elementID labelText:(NSString *)labelText values:(NSArray*)values index:(NSInteger)index insertBlank:(BOOL)insertBlank delegate:(id<PLFormElementDelegate>)delegate;
++ (id)selectElementWithID:(NSInteger)elementID title:(NSString *)title values:(NSArray*)values index:(NSInteger)index insertBlank:(BOOL)insertBlank delegate:(id<PLFormElementDelegate>)delegate;
 {
     PLFormSelectFieldElement *element = [super elementWithID:elementID delegate:delegate];
-    element.labelText = labelText;
+    element.title = title;
     element.values = values;
     element.index = -1;
     element.originalIndex = -1;
@@ -60,7 +59,7 @@
 }
 
 @property (nonatomic, readwrite) UITextField *textfield;
-@property (nonatomic, readwrite) UILabel *placeholderLabel;
+@property (nonatomic, readwrite) UILabel *titleLabel;
 @property (nonatomic, readwrite) UILabel *valueLabel;
 @property (nonatomic, readwrite) UIPickerView *pickerView;
 
@@ -74,14 +73,15 @@
     [super setup];
     
     // create the value label
+    // create the value label
     _valueLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _valueLabel.font = [PLStyleSettings sharedInstance].h1Font;
     _valueLabel.textAlignment = NSTextAlignmentRight;
+    [self addSubview:_valueLabel];
     
-    // create a placeholder label.. same content as floating label but different style
-    _placeholderLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _placeholderLabel.font = [PLStyleSettings sharedInstance].h1Font;
-    _placeholderLabel.textAlignment = NSTextAlignmentLeft;
+    // create a title label
+    _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    _titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self addSubview:_titleLabel];
     
     // hidden textfield to trigger the picker...
     _pickerView = [[UIPickerView alloc] init];
@@ -93,31 +93,96 @@
     [_textfield setInputView:_pickerView];
     [self addSubview:_textfield];
 
-    self.contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
-
-    // here we should use a defined style not colour..
-    self.backgroundColor = [UIColor whiteColor];
-    self.layer.borderColor = [[PLStyleSettings sharedInstance] seperatorColor].CGColor;
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
     
     insideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInside:)];
     [self addGestureRecognizer:insideTapGestureRecognizer];
     outsideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOutside:)];
 }
 
+- (BOOL)canBecomeFirstResponder
+{
+    return [_textfield canBecomeFirstResponder];
+}
+
+- (BOOL)becomeFirstResponder
+{
+    return [_textfield becomeFirstResponder];
+}
+
+- (BOOL)resignFirstResponder
+{
+    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
+    [frontWindow removeGestureRecognizer:outsideTapGestureRecognizer];
+    return [_textfield resignFirstResponder];
+}
+
+
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _titleLabel.font = font;
+}
+
+-(UIFont*)font
+{
+    return _titleLabel.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _titleLabel.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _titleLabel.textColor;
+}
+
+-(void)setValueFont:(UIFont *)font
+{
+    _valueLabel.font = font;
+}
+
+-(UIFont*)valueFont
+{
+    return _valueLabel.font;
+}
+
+-(void)setValueColor:(UIColor *)color
+{
+    _valueLabel.textColor = color;
+}
+
+-(UIColor *)valueColor
+{
+    return _valueLabel.textColor;
+}
+
+-(void)setTitle:(NSString *)title
+{
+    _titleLabel.text = title;
+}
+
+-(NSString*)title
+{
+    return _titleLabel.text;
+}
+
+
+// handle constraints
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_titleLabel];
+    [self removeConstraintsForView:_valueLabel];
+    [self setNeedsUpdateConstraints];
+}
+
 - (void)setContentInsets:(UIEdgeInsets)contentInsets
 {
     _contentInsets = contentInsets;
-    
-    [_placeholderLabel removeFromSuperview];
-    [_placeholderLabel removeConstraints:_placeholderLabel.constraints];
-    [self addSubview:_placeholderLabel];
-    
-    [_valueLabel removeFromSuperview];
-    [_valueLabel removeConstraints:_valueLabel.constraints];
-    [self addSubview:_valueLabel];
-    
-    // ensure constraints get rebuilt
-    [self setNeedsUpdateConstraints];
+    [self removeInsetConstraints];
 }
 
 - (void)updateConstraints
@@ -129,11 +194,11 @@
         [_valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
     }
     
-    if (![self hasConstraintsForView:_placeholderLabel])
+    if (![self hasConstraintsForView:_titleLabel])
     {
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-        [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
-        [_placeholderLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+        [_titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+        [_titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
     }
     
     [super updateConstraints];
@@ -144,17 +209,11 @@
     [self resignFirstResponder];
 }
 
-- (void)setPlaceholder:(NSString *)placeholder
-{
-    _placeholderLabel.text = placeholder;
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
 
 -(void)updateWithElement:(PLFormSelectFieldElement*)element
 {
     self.element = element;
-    self.placeholder = element.labelText;
+    self.title = element.title;
     self.valueLabel.text = [element valueAsString];
 }
 
@@ -175,22 +234,6 @@
     }
 }
 
-- (BOOL)canBecomeFirstResponder
-{
-    return [_textfield canBecomeFirstResponder];
-}
-
-- (BOOL)becomeFirstResponder
-{
-    return [_textfield becomeFirstResponder];
-}
-
-- (BOOL)resignFirstResponder
-{
-    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
-    [frontWindow removeGestureRecognizer:outsideTapGestureRecognizer];
-    return [_textfield resignFirstResponder];
-}
 
 
 #pragma mark -
@@ -222,11 +265,6 @@
 {
     NSInteger adjustedRow = (_element.insertBlank) ? row-1:row;
     return (adjustedRow<0) ? @"" : _element.values[adjustedRow];
-}
-
--(NSString*)text
-{
-    return _valueLabel.text;
 }
 
 

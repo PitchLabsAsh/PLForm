@@ -8,7 +8,6 @@
 
 
 #import "PLFormDateField.h"
-#import "PLStyleSettings.h"
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
@@ -102,7 +101,7 @@
     _valueLabel.textAlignment = NSTextAlignmentRight;
     [self addSubview:_valueLabel];
 
-    // create a placeholder label.. same content as floating label but different style
+    // create a title label
     _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:_titleLabel];

@@ -11,7 +11,6 @@
 #import "PLStyleView.h"
 #import "PLFormTextField.h"
 
-//IB_DESIGNABLE
 
 @interface PLFloatingLabelTextField : PLFormTextField
 

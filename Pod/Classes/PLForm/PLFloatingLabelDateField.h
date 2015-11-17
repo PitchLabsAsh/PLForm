@@ -9,8 +9,6 @@
 
 #import "PLFormDateField.h"
 
-//IB_DESIGNABLE
-
 @interface PLFloatingLabelDateField : PLFormDateField
 
 @property (nonatomic, readonly) UILabel *floatingLabel;

@@ -15,7 +15,7 @@
 @interface PLFloatingLabelSelectField ()
 {
     NSLayoutConstraint *floatingLabelCenterConstraint;
-    NSLayoutConstraint *placeholderLabelCenterConstraint;
+    NSLayoutConstraint *textLabelCenterConstraint;
     NSLayoutConstraint *valueLabelCenterConstraint;
 }
 
@@ -24,67 +24,81 @@
 
 @implementation PLFloatingLabelSelectField
 
-@dynamic placeholder;
-@dynamic placeholderLabel;
-@dynamic valueLabel;
 
 -(void)setup
 {
     // create the additional floating label
     _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
-    _floatingLabel.font = [PLStyleSettings sharedInstance].h2Font;
     _floatingLabel.alpha = 0.0f;
+    [self addSubview:_floatingLabel];
     
     [super setup];
     
     self.valueLabel.textAlignment = NSTextAlignmentLeft;
     self.valueLabel.alpha = 0.0f;
-    self.placeholderLabel.textColor = [[PLStyleSettings sharedInstance] unselectedColor];
 }
 
-- (void)setContentInsets:(UIEdgeInsets)contentInsets
+-(void)setFloatingFont:(UIFont *)font
 {
-    [super setContentInsets:contentInsets];
-    
-    floatingLabelCenterConstraint = nil;
-    placeholderLabelCenterConstraint = nil;
-    valueLabelCenterConstraint = nil;
-    
-    // remove and readd the views to delete the constraints
-    [_floatingLabel removeFromSuperview];
-    [_floatingLabel removeConstraints:_floatingLabel.constraints];
-    [self addSubview:_floatingLabel];
+    _floatingLabel.font = font;
 }
+
+-(UIFont*)floatingFont
+{
+    return _floatingLabel.font;
+}
+
+-(void)setFloatingColor:(UIColor *)color
+{
+    _floatingLabel.textColor = color;
+}
+
+-(UIColor *)floatingColor
+{
+    return _floatingLabel.textColor;
+}
+
+- (void)setTitle:(NSString *)title
+{
+    _floatingLabel.text = title;
+    [super setTitle:title];
+}
+
+-(void)removeInsetConstraints
+{
+    [self removeConstraintsForView:_floatingLabel];
+    floatingLabelCenterConstraint = nil;
+    textLabelCenterConstraint = nil;
+    valueLabelCenterConstraint = nil;
+    [super removeInsetConstraints];
+}
+
 
 - (void)updateConstraints
 {
-    if (![self hasConstraintsForView:_floatingLabel])
+    if (self.superview)
     {
-        [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    
-    if (![self hasConstraintsForView:self.valueLabel])
-    {
-        [self.valueLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        [self.valueLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
-        valueLabelCenterConstraint = [self.valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-    }
-    
-    if (![self hasConstraintsForView:self.placeholderLabel])
-    {
-        [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-        [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
-        placeholderLabelCenterConstraint = [self.placeholderLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        if (![self hasConstraintsForView:_floatingLabel])
+        {
+            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+        
+        if (![self hasConstraintsForView:self.valueLabel])
+        {
+            [self.valueLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            [self.valueLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
+            valueLabelCenterConstraint = [self.valueLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
+        
+        if (![self hasConstraintsForView:self.titleLabel])
+        {
+            [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
+            textLabelCenterConstraint = [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        }
     }
     [super updateConstraints];
-}
-
-
--(void)setPlaceholder:(NSString *)placeholder
-{
-    _floatingLabel.text = placeholder;
-    [super setPlaceholder:placeholder];
 }
 
 -(void)updateWithElement:(PLFormSelectFieldElement*)element
@@ -116,12 +130,12 @@
     CGSize textSize = [self.valueLabel intrinsicContentSize];
     floatingLabelCenterConstraint.constant = - ((self.bounds.size.height - labelSize.height) / 2.0f) + self.contentInsets.top;
     valueLabelCenterConstraint.constant = ((self.bounds.size.height - textSize.height) / 2.0f) - self.contentInsets.bottom;
-    placeholderLabelCenterConstraint.constant = valueLabelCenterConstraint.constant;
-
+    textLabelCenterConstraint.constant = valueLabelCenterConstraint.constant;
+    
     void (^showBlock)() = ^{
         self.floatingLabel.alpha = 1.0f;
         self.valueLabel.alpha = 1.0f;
-        self.placeholderLabel.alpha = 0.0f;
+        self.titleLabel.alpha = 0.0f;
         [self layoutIfNeeded];
     };
     
@@ -143,12 +157,12 @@
 {
     floatingLabelCenterConstraint.constant = 0;
     valueLabelCenterConstraint.constant = 0;
-    placeholderLabelCenterConstraint.constant = 0;
+    textLabelCenterConstraint.constant = 0;
 
     void (^hideBlock)() = ^{
         self.floatingLabel.alpha = 0.0f;
         self.valueLabel.alpha = 0.0f;
-        self.placeholderLabel.alpha = 1.0f;
+        self.titleLabel.alpha = 1.0f;
         [self layoutIfNeeded];
     };
     

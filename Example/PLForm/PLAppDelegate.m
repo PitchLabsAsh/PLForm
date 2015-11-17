@@ -11,6 +11,7 @@
 #import <PLForm/PLFormTextField.h>
 #import <PLForm/PLFloatingLabelTextField.h>
 #import <PLForm/PLFloatingLabelDateField.h>
+#import <PLForm/PLFloatingLabelSelectField.h>
 
 @implementation PLAppDelegate
 
@@ -42,6 +43,19 @@
     [[PLFloatingLabelDateField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [[PLFloatingLabelDateField appearance] setFloatingColor:[UIColor blueColor]];
 
+    
+    
+    [[PLFormSelectField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormSelectField appearance] setCornerRadius:2];
+    [[PLFormSelectField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormSelectField appearance] setTextColor:[UIColor blueColor]];
+    [[PLFormSelectField appearance] setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormSelectField appearance] setValueColor:[UIColor blackColor]];
+    [[PLFormSelectField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+    
+    [[PLFloatingLabelSelectField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [[PLFloatingLabelSelectField appearance] setFloatingColor:[UIColor blueColor]];
+     
     return YES;
 }
 
