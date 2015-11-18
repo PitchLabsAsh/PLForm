@@ -90,6 +90,11 @@
             [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.placeholderLabel withOffset:0];
         }
+        if (self.element.value.length >0)
+        {
+            [self showFloatingLabel:NO];
+        }
+
     }
     [super updateConstraints];
 }

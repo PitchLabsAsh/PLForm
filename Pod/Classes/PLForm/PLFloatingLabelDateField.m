@@ -95,6 +95,10 @@
             [self.titleLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
             textLabelCenterConstraint = [self.titleLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
         }
+        if (self.valueLabel.text.length >0)
+        {
+            [self showFloatingLabel:NO];
+        }
     }
     [super updateConstraints];
 }

@@ -92,6 +92,10 @@
             [self.textfield autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
             textFieldCenterConstraint = [self.textfield autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
         }
+        if (self.element.index >=0)
+        {
+            [self showFloatingLabel:NO];
+        }
     }
     [super updateConstraints];
 }

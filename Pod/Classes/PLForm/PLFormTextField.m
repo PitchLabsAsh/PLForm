@@ -206,6 +206,7 @@
         _textfield.keyboardType = UIKeyboardTypeDefault;
         _textfield.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
+    [self setNeedsLayout];
 }
 
 
