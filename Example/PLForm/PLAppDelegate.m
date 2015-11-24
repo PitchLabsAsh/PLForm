@@ -27,9 +27,10 @@
     // set some appearance
     [[PLFormTextField appearance] setBackgroundColor:[UIColor whiteColor]];
     [[PLFormTextField appearance] setCornerRadius:2];
-    [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
     [[PLFormTextField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
     [[PLFormTextField appearance] setTextColor:[UIColor blackColor]];
+    [[PLFormTextField appearance] setPlaceholderFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
+    [[PLFormTextField appearance] setPlaceholderColor:[UIColor blueColor]];
     [[PLFormTextField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
 
     [[PLFloatingLabelTextField appearance] setFloatingFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];

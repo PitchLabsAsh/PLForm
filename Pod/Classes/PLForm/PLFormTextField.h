@@ -46,8 +46,11 @@ typedef enum {
 @property (nonatomic) NSString *placeholder;
 @property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 
+// placeholde font can get overridden, so set font first then placeholder font
+// TODO add a specific placeholder label rather than relying on the textfield placeholder
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIFont *placeholderFont UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *placeholderColor UI_APPEARANCE_SELECTOR;
 
 -(void)removeInsetConstraints;

@@ -60,8 +60,9 @@
 
 
 @implementation PLFormTextField
-
-@synthesize placeholderColor = _placeholderColor;
+{
+    NSMutableDictionary *placeholderAttributes;
+}
 
 -(void)setup
 {
@@ -73,6 +74,7 @@
     [self addSubview:_textfield];
     
     _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
+    placeholderAttributes = [NSMutableDictionary dictionaryWithCapacity:2];
 }
 
 
@@ -121,21 +123,32 @@
 
 -(void)setPlaceholderColor:(UIColor *)color
 {
-    _placeholderColor = color;
-    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
+    placeholderAttributes[NSForegroundColorAttributeName] = color;
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:placeholderAttributes];
 }
 
 -(UIColor*)placeholderColor
 {
-    return _placeholderColor;
+    return placeholderAttributes[NSForegroundColorAttributeName];
 }
 
+-(void)setPlaceholderFont:(UIFont *)font
+{
+    placeholderAttributes[NSFontAttributeName] = font;
+    _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.attributedPlaceholder.string attributes:placeholderAttributes];
+    
+}
+
+-(UIFont*)placeholderFont
+{
+    return placeholderAttributes[NSFontAttributeName];
+}
 
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    if (_placeholderColor)
+    if (placeholderAttributes.count)
     {
-        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.placeholder attributes:@{NSForegroundColorAttributeName:_placeholderColor}];
+        _textfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_textfield.attributedPlaceholder.string attributes:placeholderAttributes];
     }
     else
     {
