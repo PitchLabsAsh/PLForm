@@ -239,9 +239,6 @@
 
 -(void)updateWithElement:(PLFormDateFieldElement*)element
 {
-    self.isAccessibilityElement = YES;
-    self.accessibilityLabel = element.title;
-
     self.element = element;
     self.title = element.title;
     

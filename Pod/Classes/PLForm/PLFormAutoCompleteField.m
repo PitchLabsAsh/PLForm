@@ -253,9 +253,6 @@
 
 -(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element
 {
-    self.isAccessibilityElement = YES;
-    self.accessibilityLabel = element.placeholderText;
-
     self.element = element;
     self.placeholder = element.placeholderText;
     self.text = element.value;

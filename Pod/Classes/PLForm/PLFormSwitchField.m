@@ -106,9 +106,6 @@
 
 -(void)updateWithElement:(PLFormSwitchFieldElement*)element
 {
-    self.isAccessibilityElement = YES;
-    self.accessibilityLabel = element.title;
-
     self.element = element;
     _titleLabel.text = element.title;
     _switchControl.on = element.value;

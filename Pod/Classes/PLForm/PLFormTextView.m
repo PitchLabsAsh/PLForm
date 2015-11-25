@@ -182,9 +182,6 @@
 
 -(void)updateWithElement:(PLFormTextViewElement*)element
 {
-    self.isAccessibilityElement = YES;
-    self.accessibilityLabel = element.placeholderText;
-
     self.element = element;
     self.text = element.value;
     self.placeholder = element.placeholderText;
