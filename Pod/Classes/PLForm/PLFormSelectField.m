@@ -215,6 +215,9 @@
 
 -(void)updateWithElement:(PLFormSelectFieldElement*)element
 {
+    self.isAccessibilityElement = YES;
+    self.accessibilityLabel = element.title;
+
     self.element = element;
     self.title = element.title;
     self.valueLabel.text = [element valueAsString];
