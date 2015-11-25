@@ -261,6 +261,7 @@
     _textfield.keyboardType = UIKeyboardTypeDefault;
     _textfield.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
+    _textfield.clearsOnBeginEditing = element.clearsOnBeginEditing;
     
     [self updateSuggestions];
     [_collectionView reloadData];
@@ -289,6 +290,15 @@
         self.element.index = -1;
     }
     self.element.value = _textfield.text;
+}
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if(self.element.clearsOnBeginEditing)
+    {
+        [self textFieldDidChange];
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

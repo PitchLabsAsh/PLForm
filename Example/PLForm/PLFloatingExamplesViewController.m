@@ -45,6 +45,7 @@
     autoCompleteElement = [PLFormAutoCompleteFieldElement selectElementWithID:1 placeholderText:@"Select Option" values:@[@"Dog",@"Cat",@"Rabbity Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse"] delegate:self];
     autoCompleteElement.displayAllWhenBlank = YES;
     autoCompleteElement.indexRequired = YES;
+    autoCompleteElement.clearsOnBeginEditing = YES;
 
     if (self.prePopulate)
     {
