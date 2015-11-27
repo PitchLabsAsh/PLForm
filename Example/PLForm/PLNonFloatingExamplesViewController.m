@@ -45,10 +45,11 @@
     
     // build an array of items for the select
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:5];
+    UIImage *smiley = [UIImage imageNamed:@"Smiley_Face"];
     for (int i=0;i<5;i++)
     {
         NSString *title = [NSString stringWithFormat:@"Option - %d",i];
-        [items addObject:[PLFormSelectFieldItem selectItemWithTitle:title value:title image:nil]];
+        [items addObject:[PLFormSelectFieldItem selectItemWithTitle:[title uppercaseString] value:title image:smiley]];
     }
     
     textFieldElement = [PLFormTextFieldElement textInputElementWithID:0 placeholderText:@"Question" value:nil delegate:self];

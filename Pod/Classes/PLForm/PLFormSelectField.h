@@ -22,6 +22,7 @@
 
 @interface PLFormSelectFieldItemCell : UICollectionViewCell
 
+@property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
@@ -46,6 +47,7 @@
 
 @property (nonatomic, retain) NSArray *items;
 @property (nonatomic, assign) CGFloat itemWidth;
+@property (nonatomic, assign) CGFloat itemSpacing;
 @property (nonatomic, assign) CGFloat itemGutter;
 
 @end

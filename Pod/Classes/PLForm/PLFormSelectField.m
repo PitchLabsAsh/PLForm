@@ -17,14 +17,18 @@
     if ((self = [super initWithFrame:frame])) {
         self.backgroundColor = [UIColor lightGrayColor];
         
+        
         // add the label, and the constraints to center it and margins to either side
         _label = [[UILabel alloc] initWithFrame:self.bounds];
         _label.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:_label];
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_imageView,_label]];
+        _stackView.axis = UILayoutConstraintAxisVertical;
+        [self.contentView addSubview:_stackView];
         
-        [_label autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:4];
-        [_label autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:4];
-        [_label autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+        [_stackView autoCenterInSuperview];
     }
     return self;
 }
@@ -371,6 +375,7 @@
     PLFormSelectFieldItem *item = self.element.items[indexPath.row];
     cell.label.text = item.title;
     cell.label.font = self.textfield.font;
+    cell.imageView.image = item.image;
     return cell;
 }
 
