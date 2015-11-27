@@ -61,6 +61,7 @@
 @property (nonatomic, readonly) UILabel *titleLabel;
 @property (nonatomic, readonly) UILabel *valueLabel;
 @property (nonatomic, readonly) UIPickerView *pickerView;
+@property (nonatomic, readonly) UICollectionView *collectionView;
 
 @property (nonatomic) NSString *title;
 @property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;

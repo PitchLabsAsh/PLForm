@@ -131,8 +131,7 @@
 @property (nonatomic, readwrite) UILabel *titleLabel;
 @property (nonatomic, readwrite) UILabel *valueLabel;
 @property (nonatomic, readwrite) UIPickerView *pickerView;
-
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, readwrite) UICollectionView *collectionView;
 
 @end
 
