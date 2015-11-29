@@ -118,6 +118,11 @@
 
 -(NSString*)valueAsString
 {
+    if (self.items && (self.index >=0) && (self.index < self.items.count))
+    {
+        PLFormSelectFieldItem *item = self.items[self.index];
+        return item.value;
+    }
     if ((self.index >=0) && (self.index < self.values.count))
         return [self.values objectAtIndex:self.index];
     return nil;
