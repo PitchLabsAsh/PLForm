@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIView *separatorView;
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;
 @property (nonatomic, strong) UIColor *textColor UI_APPEARANCE_SELECTOR;
 

@@ -14,9 +14,7 @@
 @implementation PLFormSelectFieldItemCell
 
 -(id)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
-        self.backgroundColor = [UIColor lightGrayColor];
-        
+    if ((self = [super initWithFrame:frame])) {        
         
         // add the label, and the constraints to center it and margins to either side
         _label = [[UILabel alloc] initWithFrame:self.bounds];
@@ -24,8 +22,15 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
 
+        float sortaPixel = 1.0/[UIScreen mainScreen].scale;
+        _separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sortaPixel, self.frame.size.height)];
+        _separatorView.userInteractionEnabled = NO;
+        [_separatorView setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:_separatorView];
+        
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_imageView,_label]];
         _stackView.axis = UILayoutConstraintAxisVertical;
+        _stackView.spacing = 8;
         [self.contentView addSubview:_stackView];
         
         [_stackView autoCenterInSuperview];
@@ -170,7 +175,7 @@
     [_collectionView setDelegate:self];
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [_collectionView registerClass:[PLFormSelectFieldItemCell class] forCellWithReuseIdentifier:@"PLFormSelectFieldItemCell"];
-    _collectionView.backgroundColor = [UIColor lightGrayColor];
+    _collectionView.backgroundColor = [UIColor clearColor];
     
     _textfield = [[UITextField alloc] initWithFrame:self.bounds];
     _textfield.hidden = YES;
@@ -375,6 +380,7 @@
     cell.label.text = item.title;
     cell.label.font = self.textfield.font;
     cell.imageView.image = item.image;
+    cell.separatorView.hidden = (indexPath.row==0);
     return cell;
 }
 
