@@ -11,6 +11,70 @@
 #import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
+@implementation PLFormSelectFieldItemCell
+
+-(id)initWithFrame:(CGRect)frame {
+    if ((self = [super initWithFrame:frame])) {        
+        
+        // add the label, and the constraints to center it and margins to either side
+        _label = [[UILabel alloc] initWithFrame:self.bounds];
+        _label.textAlignment = NSTextAlignmentCenter;
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+        float sortaPixel = 1.0/[UIScreen mainScreen].scale;
+        _separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sortaPixel, self.frame.size.height)];
+        _separatorView.userInteractionEnabled = NO;
+        [_separatorView setBackgroundColor:[UIColor whiteColor]];
+        [self addSubview:_separatorView];
+        
+        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_imageView,_label]];
+        _stackView.axis = UILayoutConstraintAxisVertical;
+        _stackView.spacing = 8;
+        [self.contentView addSubview:_stackView];
+        
+        [_stackView autoCenterInSuperview];
+    }
+    return self;
+}
+
+// attributes
+-(void)setFont:(UIFont *)font
+{
+    _label.font = font;
+}
+
+-(UIFont*)font
+{
+    return _label.font;
+}
+
+-(void)setTextColor:(UIColor *)color
+{
+    _label.textColor = color;
+}
+
+-(UIColor *)textColor
+{
+    return _label.textColor;
+}
+
+@end
+
+@implementation PLFormSelectFieldItem
+
++ (id)selectItemWithTitle:(NSString *)title value:(NSString*)value image:(UIImage*)image;
+{
+    PLFormSelectFieldItem *item = [[self class] new];
+    item.title = title;
+    item.value = value;
+    item.image = image;
+    return item;
+}
+
+@end
+
+
 @implementation PLFormSelectFieldElement
 
 + (id)selectElementWithID:(NSInteger)elementID title:(NSString *)title values:(NSArray*)values delegate:(id<PLFormElementDelegate>)delegate;
@@ -42,8 +106,23 @@
     return element;
 }
 
++ (id)selectElementWithID:(NSInteger)elementID title:(NSString *)title items:(NSArray*)items index:(NSInteger)index delegate:(id<PLFormElementDelegate>)delegate;
+{
+    PLFormSelectFieldElement *element = [super elementWithID:elementID delegate:delegate];
+    element.title = title;
+    element.items = items;
+    element.index = index;
+    element.originalIndex = -1;
+    return element;
+}
+
 -(NSString*)valueAsString
 {
+    if (self.items && (self.index >=0) && (self.index < self.items.count))
+    {
+        PLFormSelectFieldItem *item = self.items[self.index];
+        return item.value;
+    }
     if ((self.index >=0) && (self.index < self.values.count))
         return [self.values objectAtIndex:self.index];
     return nil;
@@ -52,7 +131,7 @@
 @end
 
 
-@interface PLFormSelectField ()
+@interface PLFormSelectField () 
 {
     UITapGestureRecognizer *insideTapGestureRecognizer;
     UITapGestureRecognizer *outsideTapGestureRecognizer;
@@ -62,6 +141,7 @@
 @property (nonatomic, readwrite) UILabel *titleLabel;
 @property (nonatomic, readwrite) UILabel *valueLabel;
 @property (nonatomic, readwrite) UIPickerView *pickerView;
+@property (nonatomic, readwrite) UICollectionView *collectionView;
 
 @end
 
@@ -88,9 +168,22 @@
     _pickerView.delegate = self;
     _pickerView.showsSelectionIndicator = YES;
 
+    // create the alternative collection view we can use instead
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    layout.sectionInset = UIEdgeInsetsZero;
+    
+    _collectionView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 0, 224) collectionViewLayout:layout];
+    [_collectionView setDataSource:self];
+    [_collectionView setDelegate:self];
+    [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [_collectionView registerClass:[PLFormSelectFieldItemCell class] forCellWithReuseIdentifier:@"PLFormSelectFieldItemCell"];
+    _collectionView.backgroundColor = [UIColor clearColor];
+    
     _textfield = [[UITextField alloc] initWithFrame:self.bounds];
     _textfield.hidden = YES;
-    [_textfield setInputView:_pickerView];
     [self addSubview:_textfield];
 
     _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
@@ -218,6 +311,11 @@
     self.element = element;
     self.title = element.title;
     self.valueLabel.text = [element valueAsString];
+    
+    if (element.items)
+        [_textfield setInputView:_collectionView];
+    else
+        [_textfield setInputView:_pickerView];
 }
 
 - (void)onTapInside:(UIGestureRecognizer*)sender
@@ -268,6 +366,48 @@
 {
     NSInteger adjustedRow = (_element.insertBlank) ? row-1:row;
     return (adjustedRow<0) ? @"" : _element.values[adjustedRow];
+}
+
+
+
+#pragma mark -
+#pragma mark Collection view data source
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.element.items.count;
+}
+
+// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PLFormSelectFieldItemCell *cell = (PLFormSelectFieldItemCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"PLFormSelectFieldItemCell" forIndexPath:indexPath];
+    PLFormSelectFieldItem *item = self.element.items[indexPath.row];
+    cell.label.text = item.title;
+    cell.label.font = self.textfield.font;
+    cell.imageView.image = item.image;
+    cell.separatorView.hidden = (indexPath.row==0);
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // we know the font we are using, so calc the width of the font
+    CGFloat width = fmax(150,self.element.itemWidth);
+    return CGSizeMake(width,224);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    PLFormSelectFieldItem *item = self.element.items[indexPath.row];
+    
+    _valueLabel.text = item.value;
+    _element.index = indexPath.row;
+    
+    [_textfield resignFirstResponder];
+    if ([self.element.delegate respondsToSelector:@selector(formElementDidChangeValue:)])
+    {
+        [(id<PLFormElementDelegate>)self.element.delegate formElementDidChangeValue:self.element];
+    }
 }
 
 

@@ -99,6 +99,9 @@
     [[PLFormSwitchField appearance] setBackgroundColor:[UIColor whiteColor]];
     [[PLFormSwitchField appearance] setCornerRadius:2];
 
+    
+    [[PLFormSelectFieldItemCell appearance] setBackgroundColor:[UIColor lightGrayColor]];
+
     return YES;
 }
 

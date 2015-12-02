@@ -125,6 +125,16 @@
         [self hideFloatingLabel:YES];
 }
 
+#pragma mark Collection view data source
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    if (self.element.index >=0)
+        [self showFloatingLabel:YES];
+    else
+        [self hideFloatingLabel:YES];
+}
 
 // we dont have a hide label method cos currently its not possible to delete a date once weve set one
 - (void)showFloatingLabel:(BOOL)animated
