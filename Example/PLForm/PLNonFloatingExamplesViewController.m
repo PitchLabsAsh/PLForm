@@ -50,6 +50,7 @@
     autoCompleteElement.indexRequired = YES;
     autoCompleteElement.clearsOnBeginEditing = YES;
     pinElement = [PLFormPinFieldElement pinFieldElementWithID:4 pinLength:5 delegate:self];
+    pinElement.dotSize = 10;
 
     if (self.prePopulate)
     {
