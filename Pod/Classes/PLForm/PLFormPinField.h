@@ -17,6 +17,7 @@
 + (instancetype)pinFieldElementWithID:(NSInteger)elementID pinLength:(NSInteger)pinLength delegate:(id<PLFormElementDelegate>)delegate;
 
 @property (nonatomic, assign) NSInteger pinLength;
+@property (nonatomic, assign) NSInteger dotSize;
 @property (nonatomic, copy) NSString* value;
 @property (nonatomic, copy) NSString* originalValue;
 

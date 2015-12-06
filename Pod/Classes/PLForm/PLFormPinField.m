@@ -18,6 +18,7 @@
     element.elementID = elementID;
     element.delegate = delegate;
     element.pinLength = pinLength;
+    element.dotSize = 22;
     return element;
 }
 
@@ -102,8 +103,8 @@
         }
         
         [dots[0] autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
-        [dots autoSetViewsDimension:ALDimensionHeight toSize:22];
-        [dots autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeTop withFixedSize:22];
+        [dots autoSetViewsDimension:ALDimensionHeight toSize:element.dotSize];
+        [dots autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeTop withFixedSize:element.dotSize];
         dotViews = dots;
     }
     _textfield.text = element.value;
