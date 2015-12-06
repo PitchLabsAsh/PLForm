@@ -162,11 +162,20 @@
     return [_textfield becomeFirstResponder];
 }
 
+- (BOOL)canResignFirstResponder
+{
+    return [_textfield canResignFirstResponder];
+}
+
 - (BOOL)resignFirstResponder
 {
     return [_textfield resignFirstResponder];
 }
 
+- (BOOL)isFirstResponder;
+{
+    return [_textfield isFirstResponder];
+}
 
 // attributes
 -(void)setFont:(UIFont *)font
