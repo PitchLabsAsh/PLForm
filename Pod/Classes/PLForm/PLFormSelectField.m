@@ -203,11 +203,21 @@
     return [_textfield becomeFirstResponder];
 }
 
+- (BOOL)canResignFirstResponder
+{
+    return [_textfield canResignFirstResponder];
+}
+
 - (BOOL)resignFirstResponder
 {
     UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
     [frontWindow removeGestureRecognizer:outsideTapGestureRecognizer];
     return [_textfield resignFirstResponder];
+}
+
+- (BOOL)isFirstResponder;
+{
+    return [_textfield isFirstResponder];
 }
 
 

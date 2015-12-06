@@ -64,9 +64,19 @@
     return [_switchControl becomeFirstResponder];
 }
 
+- (BOOL)canResignFirstResponder
+{
+    return [_switchControl canResignFirstResponder];
+}
+
 - (BOOL)resignFirstResponder
 {
     return [_switchControl resignFirstResponder];
+}
+
+- (BOOL)isFirstResponder;
+{
+    return [_switchControl isFirstResponder];
 }
 
 -(void)removeInsetConstraints

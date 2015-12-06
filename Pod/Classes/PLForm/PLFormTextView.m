@@ -78,11 +78,20 @@
     return [_textview becomeFirstResponder];
 }
 
+- (BOOL)canResignFirstResponder
+{
+    return [_textview canResignFirstResponder];
+}
+
 - (BOOL)resignFirstResponder
 {
     return [_textview resignFirstResponder];
 }
 
+- (BOOL)isFirstResponder;
+{
+    return [_textview isFirstResponder];
+}
 
 // attributes
 -(void)setFont:(UIFont *)font
