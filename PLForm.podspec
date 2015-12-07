@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "PLForm"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "A simple form solution for iOS with validation"
 
 # This description is used to generate tags and improve search results.
