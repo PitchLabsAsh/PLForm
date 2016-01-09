@@ -323,9 +323,20 @@
     self.valueLabel.text = [element valueAsString];
     
     if (element.items)
+    {
+        // TODO: ensure the collectionview is pre-scrolled to show the currently selected item
+        // possibly add some way to show its selected too
         [_textfield setInputView:_collectionView];
+    }
     else
+    {
+        if ((element.index >=0) && (element.index < element.values.count))
+        {
+            NSInteger adjustedIndex = (element.insertBlank) ? element.index+1:element.index;
+            [_pickerView selectRow:adjustedIndex inComponent:0 animated:NO];
+        }
         [_textfield setInputView:_pickerView];
+    }
 }
 
 - (void)onTapInside:(UIGestureRecognizer*)sender
