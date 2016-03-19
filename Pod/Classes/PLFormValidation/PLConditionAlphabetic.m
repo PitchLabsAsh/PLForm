@@ -40,7 +40,7 @@
 
 - (NSString *)createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationAlphabetic", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationAlphabetic", nil);
 }
 
 

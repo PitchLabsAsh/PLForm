@@ -46,7 +46,7 @@
 
     // for number text entry we can check the numeric is in the range
     if ([element isKindOfClass:[PLFormTextFieldElement class]] &&
-        ((PLFormTextFieldElement*)element).inputType == BBTextInputTypeNumber)
+        ((PLFormTextFieldElement*)element).inputType == PLTextInputTypeNumber)
     {
         return NSLocationInRange([string integerValue], _range);
     }
@@ -59,7 +59,7 @@
 
 - (NSString *)createLocalizedViolationString
 {    
-    return  [NSString stringWithFormat:BBLocalizedString(@"BBKeyConditionViolationRange", nil),_range.location,_range.length];
+    return  [NSString stringWithFormat:PLLocalizedString(@"PLKeyConditionViolationRange", nil),_range.location,_range.length];
 }
 
 

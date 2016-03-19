@@ -13,11 +13,11 @@
 IB_DESIGNABLE
 
 typedef enum {
-    BBTextInputTypeText,
-    BBTextInputTypeNumber,
-    BBTextInputTypePassword,
-    BBTextInputTypeEmail
-} BBTextInputType;
+    PLTextInputTypeText,
+    PLTextInputTypeNumber,
+    PLTextInputTypePassword,
+    PLTextInputTypeEmail
+} PLTextInputType;
 
 
 @interface PLFormTextFieldElement : PLFormElement
@@ -31,7 +31,10 @@ typedef enum {
 @property (nonatomic, copy) NSString* value;
 @property (nonatomic, copy) NSString* placeholderText;
 @property (nonatomic, copy) NSString* originalValue;
-@property (nonatomic, assign) BBTextInputType inputType;
+@property (nonatomic, assign) PLTextInputType inputType;
+
+// only applies to PLTextInputTypeText, others are explicitly set
+@property (nonatomic, assign) UITextAutocorrectionType textInputAutoCorrect;
 
 
 @end

@@ -26,28 +26,29 @@
     element.placeholderText = placeholderText;
     element.value = value;
     element.originalValue = value;
-    element.inputType = BBTextInputTypeText;
+    element.inputType = PLTextInputTypeText;
+    element.textInputAutoCorrect = YES;
     return element;
 }
 
 + (instancetype)numberInputElementWithID:(NSInteger)elementID placeholderText:(NSString *)placeholderText value:(NSString *)value delegate:(id<PLFormElementDelegate>)delegate
 {
     PLFormTextFieldElement* element = [self textInputElementWithID:elementID placeholderText:placeholderText value:value delegate:delegate];
-    element.inputType = BBTextInputTypeNumber;
+    element.inputType = PLTextInputTypeNumber;
     return element;
 }
 
 + (instancetype)passwordInputElementWithID:(NSInteger)elementID placeholderText:(NSString *)placeholderText value:(NSString *)value delegate:(id<PLFormElementDelegate>)delegate
 {
     PLFormTextFieldElement* element = [self textInputElementWithID:elementID placeholderText:placeholderText value:value delegate:delegate];
-    element.inputType = BBTextInputTypePassword;
+    element.inputType = PLTextInputTypePassword;
     return element;
 }
 
 + (instancetype)emailInputElementWithID:(NSInteger)elementID placeholderText:(NSString *)placeholderText value:(NSString *)value delegate:(id<PLFormElementDelegate>)delegate
 {
     PLFormTextFieldElement* element = [self textInputElementWithID:elementID placeholderText:placeholderText value:value delegate:delegate];
-    element.inputType = BBTextInputTypeEmail;
+    element.inputType = PLTextInputTypeEmail;
     return element;
 }
 
@@ -208,26 +209,29 @@
     self.element = element;
     self.placeholder = element.placeholderText;
     self.text = element.value;
-    if (element.inputType == BBTextInputTypeNumber)
+    if (element.inputType == PLTextInputTypeNumber)
     {
         _textfield.keyboardType = UIKeyboardTypeNumberPad;
+        _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
     }
-    else if (element.inputType == BBTextInputTypeEmail)
+    else if (element.inputType == PLTextInputTypeEmail)
     {
         _textfield.keyboardType = UIKeyboardTypeEmailAddress;
         _textfield.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
     }
-    else if (element.inputType == BBTextInputTypePassword)
+    else if (element.inputType == PLTextInputTypePassword)
     {
         _textfield.keyboardType = UIKeyboardTypeDefault;
         _textfield.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _textfield.autocorrectionType = UITextAutocorrectionTypeNo;
         _textfield.secureTextEntry = YES;
     }
     else
     {
         _textfield.keyboardType = UIKeyboardTypeDefault;
         _textfield.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        _textfield.autocorrectionType = (element.textInputAutoCorrect) ? UITextAutocorrectionTypeYes : UITextAutocorrectionTypeNo;
     }
     [self setNeedsLayout];
 }

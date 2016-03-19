@@ -29,7 +29,7 @@
 
 - (NSString *) createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationAlphanumeric", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationAlphanumeric", nil);
 }
 
 

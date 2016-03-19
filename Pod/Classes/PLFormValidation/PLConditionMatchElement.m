@@ -35,7 +35,7 @@
 
 - (NSString *) createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationMatchElement", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationMatchElement", nil);
 }
 
 @end
