@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE
-
 @interface PLStyleButton : UIButton
 
 @property (nonatomic) IBInspectable UIColor *borderColor UI_APPEARANCE_SELECTOR;

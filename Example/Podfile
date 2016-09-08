@@ -1,14 +1,13 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'PLForm_Example', :exclusive => true do
+target 'PLForm_Example' do
   pod "PLForm", :path => "../"
   pod 'TPKeyboardAvoiding'
   pod 'Reveal-iOS-SDK'
+
+  target 'PLForm_Tests' do
+  end
+
 end
 
-target 'PLForm_Tests', :exclusive => true do
-  pod "PLForm", :path => "../"
-
-  pod 'FBSnapshotTestCase'
-end

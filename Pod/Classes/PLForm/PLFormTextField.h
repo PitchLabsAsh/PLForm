@@ -10,8 +10,6 @@
 #import "PLStyleView.h"
 #import "PLFormElement.h"
 
-IB_DESIGNABLE
-
 typedef enum {
     BBTextInputTypeText,
     BBTextInputTypeNumber,

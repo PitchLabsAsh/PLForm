@@ -11,8 +11,6 @@
 
 // would be agood to add some categories to UIVIew, UILabel etc that support a style name field so we can set "h1Font" in interfacebuilder
 
-IB_DESIGNABLE
-
 @interface PLStyleView : UIView
 
 @property (nonatomic) IBInspectable UIColor *borderColor UI_APPEARANCE_SELECTOR;
