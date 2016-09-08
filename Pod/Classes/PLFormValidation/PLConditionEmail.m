@@ -25,7 +25,7 @@
 
 - (NSString *) createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationEmail", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationEmail", nil);
 }
 
 @end

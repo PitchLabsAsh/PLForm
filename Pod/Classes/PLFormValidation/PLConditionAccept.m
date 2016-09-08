@@ -8,16 +8,16 @@
 
 
 #import "PLConditionAccept.h"
-//#import "BBSwitchFormElement.h"
+//#import "PLSwitchFormElement.h"
 
 @implementation PLConditionAccept
 
 - (BOOL)check:(PLFormElement *)element;
 {
-//    if (![element isKindOfClass:[BBSwitchFormElement class]])
+//    if (![element isKindOfClass:[PLSwitchFormElement class]])
 //        return NO;
 //    
-//    return ((BBSwitchFormElement*)element).value;
+//    return ((PLSwitchFormElement*)element).value;
     return NO;
 }
 
@@ -26,7 +26,7 @@
 
 - (NSString *)createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationAccept", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationAccept", nil);
 }
 
 @end

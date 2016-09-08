@@ -26,7 +26,7 @@
 
 - (NSString *) createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationNumeric", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationNumeric", nil);
 }
 
 

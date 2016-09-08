@@ -12,7 +12,7 @@
 #import "PLFormAutoCompleteField.h"
 #import "PLFormTextView.h"
 
-//#import "BBMultiSelectListFormElement.h"
+//#import "PLMultiSelectListFormElement.h"
 
 @implementation PLConditionPresent
 
@@ -40,7 +40,7 @@
 
 - (NSString *)createLocalizedViolationString
 {
-    return BBLocalizedString(@"BBKeyConditionViolationPresent", nil);
+    return PLLocalizedString(@"PLKeyConditionViolationPresent", nil);
 }
 
 @end
