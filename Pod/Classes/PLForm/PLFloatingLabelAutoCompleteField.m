@@ -7,8 +7,9 @@
 //
 
 #import "PLFloatingLabelAutoCompleteField.h"
-#import "PureLayout.h"
 #import "PLExtras-UIView.h"
+
+@import PureLayout;
 
 @interface PLFloatingLabelAutoCompleteField ()
 {

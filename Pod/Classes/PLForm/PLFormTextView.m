@@ -8,10 +8,9 @@
 
 
 #import "PLFormTextView.h"
-#import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
-
+@import PureLayout;
 
 @implementation PLFormTextViewElement
 

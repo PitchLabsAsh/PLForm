@@ -8,8 +8,9 @@
 
 
 #import "PLFormSelectField.h"
-#import "PureLayout.h"
 #import "PLExtras-UIView.h"
+
+@import PureLayout;
 
 @implementation PLFormSelectFieldItemCell
 

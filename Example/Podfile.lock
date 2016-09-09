@@ -1,5 +1,5 @@
 PODS:
-  - PLForm (0.1.3):
+  - PLForm (0.1.5):
     - PureLayout
   - PureLayout (3.0.2)
   - Reveal-iOS-SDK (1.6.2)
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  PLForm: 18e2574bb315025a97112a6e0ea6be018dfef5e3
+  PLForm: 0f693420ab6127cca6649a0e7f60957ccdcd9cb5
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe

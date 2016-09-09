@@ -9,10 +9,9 @@
 
 
 #import "PLFormTextField.h"
-#import "PureLayout.h"
 #import "PLExtras-UIView.h"
 
-
+@import PureLayout;
 
 @implementation PLFormTextFieldElement
 

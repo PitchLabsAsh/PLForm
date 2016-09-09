@@ -8,8 +8,9 @@
 
 
 #import "PLFloatingLabelTextView.h"
-#import "PureLayout.h"
 #import "PLExtras-UIView.h"
+
+@import PureLayout;
 
 @interface PLFloatingLabelTextView ()
 {
