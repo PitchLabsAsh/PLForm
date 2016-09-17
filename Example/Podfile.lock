@@ -1,13 +1,11 @@
 PODS:
-  - PLForm (0.1.5):
+  - PLForm (0.1.6):
     - PureLayout
   - PureLayout (3.0.2)
-  - Reveal-iOS-SDK (1.6.2)
   - TPKeyboardAvoiding (1.3)
 
 DEPENDENCIES:
   - PLForm (from `../`)
-  - Reveal-iOS-SDK
   - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
@@ -15,11 +13,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  PLForm: 0f693420ab6127cca6649a0e7f60957ccdcd9cb5
+  PLForm: ef98e25875079ff22eedf51b16e0f0184f8c7942
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
-  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
-PODFILE CHECKSUM: 6f27bc07480fc856ecc6190537434849a856fe84
+PODFILE CHECKSUM: 79104d8126094e093f032a3e74d0491e8b777727
 
 COCOAPODS: 1.0.1
