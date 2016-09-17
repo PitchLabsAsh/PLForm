@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E1E893FB71312E42E04375E /* Pods_PLForm_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2EE13A1588CD87D148CB0AE /* Pods_PLForm_Example.framework */; };
+		5503179863FA4EB948A84A1C /* Pods_PLForm_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A66B648FD3F3A61362F78C30 /* Pods_PLForm_Tests.framework */; };
 		5E77180E1BFB251300D2CA5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E77180D1BFB251300D2CA5B /* LaunchScreen.storyboard */; };
 		5EE26A0F1BF4C5990082493C /* PLFloatingExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26A0C1BF4C5990082493C /* PLFloatingExamplesViewController.m */; };
 		5EE26A101BF4C5990082493C /* PLNonFloatingExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE26A0E1BF4C5990082493C /* PLNonFloatingExamplesViewController.m */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		014A389A9FC865342CFF3CA3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		1754337EC5E6D63DC4D36FA2 /* Pods-PLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Tests/Pods-PLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		295A5AF4D93D305DC5F2DD49 /* Pods-PLForm_Example-PLForm_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Example-PLForm_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Example-PLForm_Tests/Pods-PLForm_Example-PLForm_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		3EE0712FD5E265EB24D53391 /* Pods-PLForm_Example-PLForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Example-PLForm_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Example-PLForm_Tests/Pods-PLForm_Example-PLForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		55E71AF59A897AFCCFF2A490 /* PLForm.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PLForm.podspec; path = ../PLForm.podspec; sourceTree = "<group>"; };
@@ -73,8 +75,10 @@
 		8350FBF441894F9F541045FC /* Pods_PLForm_Example_PLForm_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PLForm_Example_PLForm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		95C705A14B7EDF1FED4DC8F0 /* Pods-PLForm_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Example/Pods-PLForm_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		A66B648FD3F3A61362F78C30 /* Pods_PLForm_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PLForm_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2EE13A1588CD87D148CB0AE /* Pods_PLForm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PLForm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C91A1EC30B44C8BB2C5C47AB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		D06E30A63322B3145BF7B775 /* Pods-PLForm_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Tests/Pods-PLForm_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		D6DF13E0DAD68397105FAF5C /* Pods-PLForm_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PLForm_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-PLForm_Example/Pods-PLForm_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +102,7 @@
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
 				671EDC016BA7B1D0650E0F0D /* Pods_PLForm_Example_PLForm_Tests.framework in Frameworks */,
+				5503179863FA4EB948A84A1C /* Pods_PLForm_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +139,7 @@
 				6003F5AF195388D20070C39A /* XCTest.framework */,
 				B2EE13A1588CD87D148CB0AE /* Pods_PLForm_Example.framework */,
 				8350FBF441894F9F541045FC /* Pods_PLForm_Example_PLForm_Tests.framework */,
+				A66B648FD3F3A61362F78C30 /* Pods_PLForm_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,6 +213,8 @@
 				D6DF13E0DAD68397105FAF5C /* Pods-PLForm_Example.release.xcconfig */,
 				3EE0712FD5E265EB24D53391 /* Pods-PLForm_Example-PLForm_Tests.debug.xcconfig */,
 				295A5AF4D93D305DC5F2DD49 /* Pods-PLForm_Example-PLForm_Tests.release.xcconfig */,
+				1754337EC5E6D63DC4D36FA2 /* Pods-PLForm_Tests.debug.xcconfig */,
+				D06E30A63322B3145BF7B775 /* Pods-PLForm_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -324,7 +332,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PLForm_Example-PLForm_Tests/Pods-PLForm_Example-PLForm_Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PLForm_Tests/Pods-PLForm_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		459C2F68C7EDA9CB063BB835 /* [CP] Copy Pods Resources */ = {
@@ -339,7 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PLForm_Example-PLForm_Tests/Pods-PLForm_Example-PLForm_Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PLForm_Tests/Pods-PLForm_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7B6097B83665E5EAACD1F8B5 /* [CP] Check Pods Manifest.lock */ = {
@@ -575,7 +583,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EE0712FD5E265EB24D53391 /* Pods-PLForm_Example-PLForm_Tests.debug.xcconfig */;
+			baseConfigurationReference = 1754337EC5E6D63DC4D36FA2 /* Pods-PLForm_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -599,7 +607,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 295A5AF4D93D305DC5F2DD49 /* Pods-PLForm_Example-PLForm_Tests.release.xcconfig */;
+			baseConfigurationReference = D06E30A63322B3145BF7B775 /* Pods-PLForm_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
