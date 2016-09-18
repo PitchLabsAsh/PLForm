@@ -18,6 +18,7 @@
 
 @property (nonatomic, assign) NSInteger pinLength;
 @property (nonatomic, assign) NSInteger dotSize;
+@property (nonatomic, assign) BOOL enableUnderline;
 @property (nonatomic, copy) NSString* value;
 @property (nonatomic, copy) NSString* originalValue;
 
@@ -28,6 +29,11 @@
 
 @property (nonatomic, strong) PLFormPinFieldElement* element;
 @property (nonatomic, readonly) UITextField *textfield;
+
+@property (nonatomic,strong) UIColor *unselectedUnderlineColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *selectedUnderlineColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic,strong) UIColor *highlightedUnderlineColor UI_APPEARANCE_SELECTOR;
+
 
 -(PLFormPinDot*)createDotWithTag:(NSInteger)tag;
 -(void)updateWithElement:(PLFormPinFieldElement*)element;

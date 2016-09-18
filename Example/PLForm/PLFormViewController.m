@@ -37,21 +37,31 @@
         if (failedConditions.count != 0)
         {
             PLCondition *cond = [failedConditions conditionAtIndex:0];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: nil
-                                                            message: cond.localizedViolationString
-                                                           delegate: nil
-                                                  cancelButtonTitle: NSLocalizedString(@"OK", @"OK")
-                                                  otherButtonTitles: nil];
-            [alert show];
+            
+            UIAlertController *alertController = [UIAlertController
+                                                  alertControllerWithTitle:nil
+                                                  message:cond.localizedViolationString
+                                                  preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction
+                                       actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                       style:UIAlertActionStyleDefault
+                                       handler:nil];
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
             return;
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: nil
-                                                    message: @"All verified!"
-                                                   delegate: nil
-                                          cancelButtonTitle: NSLocalizedString(@"OK", @"OK")
-                                          otherButtonTitles: nil];
-    [alert show];
     
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:nil
+                                          message:@"All verified!"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                               style:UIAlertActionStyleDefault
+                               handler:nil];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
+
 @end

@@ -4,6 +4,7 @@ use_frameworks!
 target 'PLForm_Example' do
   pod "PLForm", :path => "../"
   pod 'TPKeyboardAvoiding'
+  pod 'Reveal-SDK', :configurations => ['Debug']
 
   target 'PLForm_Tests' do
 	 inherit! :search_paths

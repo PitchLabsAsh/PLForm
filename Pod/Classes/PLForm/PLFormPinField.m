@@ -36,6 +36,7 @@
     UITapGestureRecognizer *outsideTapGestureRecognizer;
 
     NSArray *dotViews;
+    NSArray *underlineViews;
 }
 @property (nonatomic, readwrite) UITextField *textfield;
 
@@ -67,6 +68,10 @@
     insideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapInside:)];
     [self addGestureRecognizer:insideTapGestureRecognizer];
     outsideTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOutside:)];
+    
+    _unselectedUnderlineColor = [UIColor darkGrayColor];
+    _highlightedUnderlineColor = [UIColor darkGrayColor];
+    _selectedUnderlineColor = [UIColor darkGrayColor];
 }
 
 -(void)dealloc
@@ -93,6 +98,12 @@
     }
     dotViews = nil;
     
+    for (UIView *uline in underlineViews)
+    {
+        [uline removeFromSuperview];
+    }
+    underlineViews = nil;
+    
     if (element.pinLength >0)
     {
         NSMutableArray *dots = [NSMutableArray arrayWithCapacity:element.pinLength];
@@ -107,10 +118,31 @@
         [dots autoSetViewsDimension:ALDimensionHeight toSize:element.dotSize];
         [dots autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeTop withFixedSize:element.dotSize];
         dotViews = dots;
+        
+        if (element.enableUnderline)
+        {
+            NSMutableArray *lines = [NSMutableArray arrayWithCapacity:element.pinLength];
+            for (PLFormPinDot *dot in self.subviews)
+            {
+                if ([dot isKindOfClass:[PLFormPinDot class]])
+                {
+                    UIView *underline = [UIView new];
+                    underline.layer.cornerRadius = 2;
+                    [lines addObject:underline];
+                    [self addSubview:underline];
+                    
+                    [underline autoSetDimensionsToSize:CGSizeMake(element.dotSize*2, 2)];
+                    [underline autoAlignAxis:ALAxisHorizontal toSameAxisOfView:dot withOffset:element.dotSize+4];
+                    [underline autoAlignAxis:ALAxisVertical toSameAxisOfView:dot];
+                }
+            }
+            underlineViews = lines;
+        }
+
     }
+    
     _textfield.text = element.value;
-    // setup
-    // create the pin cells
+    [self updateBoxesForLength:self.textfield.text.length];
 }
 
 - (void)onTapInside:(UIGestureRecognizer*)sender
@@ -172,6 +204,22 @@
         else
         {
             pinDot.state = PLPinDotStateUnselected;
+        }
+    }
+    
+    for (UIView *underlineView in underlineViews)
+    {
+        if (underlineView.tag < length)
+        {
+            underlineView.backgroundColor = self.selectedUnderlineColor;
+        }
+        else if (((_textfield.isEditing) && underlineView.tag == length))
+        {
+            underlineView.backgroundColor = self.highlightedUnderlineColor;
+        }
+        else
+        {
+            underlineView.backgroundColor = self.unselectedUnderlineColor;
         }
     }
 }

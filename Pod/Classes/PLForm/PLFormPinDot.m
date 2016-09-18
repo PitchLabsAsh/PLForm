@@ -18,10 +18,10 @@
     
     _unselectedColor = [UIColor blackColor];
     _highlightedColor = [UIColor darkGrayColor];
-    _selectedColor = [UIColor whiteColor];
+    _selectedColor = [UIColor blueColor];
     _unselectedBorderColor = [UIColor blackColor];
     _highlightedBorderColor = [UIColor darkGrayColor];
-    _selectedBorderColor = [UIColor whiteColor];
+    _selectedBorderColor = [UIColor blueColor];
     
     self.state = PLPinDotStateUnselected;
 }
