@@ -58,6 +58,5 @@ typedef enum {
 -(void)removeInsetConstraints;
 -(void)textFieldDidChange;
 -(void)updateWithElement:(PLFormTextFieldElement*)element;
--(void)setPlaceholderAlignment:(NSTextAlignment)alignment;
 
 @end

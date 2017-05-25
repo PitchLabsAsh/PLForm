@@ -224,5 +224,10 @@
     }
 }
 
+- (void)setAlignment:(NSTextAlignment)alignment {
+    _alignment = alignment;
+    self.textview.textAlignment = alignment;
+}
+
 
 @end

@@ -69,7 +69,9 @@
     }
     
     [_textField updateWithElement:textFieldElement];
+    _textField.alignment = NSTextAlignmentLeft;
     [_selectField updateWithElement:selectFieldElement];
+    _selectField.alignment = NSTextAlignmentRight;
     [_selectField2 updateWithElement:selectFieldElement2];
     [_dateField updateWithElement:dateFieldElement];
     [_textView updateWithElement:textViewElement];

@@ -289,6 +289,9 @@
     }
 }
 
-
+- (void)setAlignment:(NSTextAlignment)alignment {
+    _alignment = alignment;
+    self.textfield.textAlignment = alignment;
+}
 
 @end

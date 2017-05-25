@@ -72,9 +72,7 @@
         if (![self hasConstraintsForView:_floatingLabel])
         {
             [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
-            if (self.alignment == NSTextAlignmentCenter) {
                 [_floatingLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
-            }
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
         }
         if (![self hasConstraintsForView:self.textfield])
