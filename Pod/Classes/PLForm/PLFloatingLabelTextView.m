@@ -83,12 +83,34 @@
         }
         if (![self hasConstraintsForView:self.placeholderLabel])
         {
-            [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            switch (self.alignment) {
+                case NSTextAlignmentRight:
+                    [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
+                    break;
+                case NSTextAlignmentCenter:
+                    [self.placeholderLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+                    [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+                    break;
+                default:
+                    [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+                    break;
+            }
             placeholderLabelTopConstraint = [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:self.contentInsets.top];
         }
         if (![self hasConstraintsForView:_floatingLabel])
         {
-            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            switch (self.alignment) {
+                case NSTextAlignmentRight:
+                    [self.floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:self.contentInsets.right];
+                    break;
+                case NSTextAlignmentCenter:
+                    [self.floatingLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+                     [self.floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+                    break;
+                default:
+                    [self.floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+                    break;
+            }
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.placeholderLabel withOffset:0];
         }
         if (self.element.value.length >0)
@@ -185,6 +207,14 @@
     {
         hideBlock();
     }
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    [super setAlignment:alignment];
+    self.placeholderLabel.textAlignment = alignment;
+    self.floatingLabel.textAlignment = alignment;
+    [self removeConstraintsForView:_floatingLabel];
+    [self updateConstraints];
 }
 
 @end

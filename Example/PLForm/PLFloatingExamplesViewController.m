@@ -71,12 +71,15 @@
     [_textField updateWithElement:textFieldElement];
     _textField.alignment = NSTextAlignmentLeft;
     [_selectField updateWithElement:selectFieldElement];
-    _selectField.alignment = NSTextAlignmentRight;
+    _selectField.alignment = NSTextAlignmentCenter;
     [_selectField2 updateWithElement:selectFieldElement2];
+    _selectField2.alignment = NSTextAlignmentRight;
     [_dateField updateWithElement:dateFieldElement];
+    _dateField.alignment = NSTextAlignmentCenter;
     [_textView updateWithElement:textViewElement];
+    _textView.alignment = NSTextAlignmentCenter;
     [_autoTextField updateWithElement:autoCompleteElement];
-
+    _autoTextField.alignment = NSTextAlignmentRight;
     PLConditionPresent *presentCondition = [[PLConditionPresent alloc] initWithLocalizedViolationString:NSLocalizedString(@"Please complete all fields", @"Please complete all fields")];
     textFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
     selectFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];

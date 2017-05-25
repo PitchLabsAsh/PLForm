@@ -76,15 +76,15 @@
     }
     
     [_textField updateWithElement:textFieldElement];
-    _textField.alignment = NSTextAlignmentRight;
+    _textField.alignment = NSTextAlignmentCenter;
     [_selectField updateWithElement:selectFieldElement];
     _selectField.alignment = NSTextAlignmentCenter;
     [_selectField2 updateWithElement:selectFieldElement2];
     _selectField2.alignment = NSTextAlignmentRight;
     [_dateField updateWithElement:dateFieldElement];
-    _dateField.alignment = NSTextAlignmentRight;
+    _dateField.alignment = NSTextAlignmentCenter;
     [_textView updateWithElement:textViewElement];
-    _textView.alignment = NSTextAlignmentRight;
+    _textView.alignment = NSTextAlignmentCenter;
     [_autoTextField updateWithElement:autoCompleteElement];
     _autoTextField.alignment = NSTextAlignmentRight;
     [_pinField updateWithElement:pinElement];
