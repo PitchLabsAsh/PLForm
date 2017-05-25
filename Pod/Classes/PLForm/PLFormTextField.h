@@ -46,6 +46,7 @@ typedef enum {
 @property (nonatomic) NSString *text;
 @property (nonatomic) NSString *placeholder;
 @property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
+@property(nonatomic) NSTextAlignment alignment;  // default is NSLeftTextAlignment
 
 // placeholde font can get overridden, so set font first then placeholder font
 // TODO add a specific placeholder label rather than relying on the textfield placeholder
@@ -57,5 +58,6 @@ typedef enum {
 -(void)removeInsetConstraints;
 -(void)textFieldDidChange;
 -(void)updateWithElement:(PLFormTextFieldElement*)element;
+-(void)setPlaceholderAlignment:(NSTextAlignment)alignment;
 
 @end
