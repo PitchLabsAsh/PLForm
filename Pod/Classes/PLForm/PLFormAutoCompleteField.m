@@ -143,7 +143,7 @@
 //    _collectionView.backgroundColor = [PLStyleSettings sharedInstance].unselectedColor;
     _textfield.inputAccessoryView = _collectionView;
     
-    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);    
+    _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
 }
 
 
@@ -381,6 +381,7 @@
     {
         [(id<PLFormElementDelegate>)self.element.delegate formElementDidChangeValue:self.element];
     }
+    [self textFieldDidChange];
 }
 
 - (void)setAlignment:(NSTextAlignment)alignment {

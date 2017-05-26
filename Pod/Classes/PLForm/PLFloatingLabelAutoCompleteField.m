@@ -25,10 +25,10 @@
 
 @dynamic placeholder;
 
+
 -(void)setup
 {
     [super setup];
-
     _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
     _floatingLabel.alpha = 0.0f;
     [self addSubview:_floatingLabel];
@@ -112,6 +112,7 @@
 -(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element
 {
     [super updateWithElement:element];
+    self.floatingLabel.alpha = 0;
     if (element.index >=0)
     {
         [self showFloatingLabel:NO];
