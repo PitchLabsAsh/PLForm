@@ -47,8 +47,8 @@
         NSString *title = [NSString stringWithFormat:@"Option - %d",i];
         [items addObject:[PLFormSelectFieldItem selectItemWithTitle:[title uppercaseString] value:title image:smiley]];
     }
-
-
+    
+    
     textFieldElement = [PLFormTextFieldElement textInputElementWithID:0 placeholderText:@"Question" value:nil delegate:self];
     selectFieldElement = [PLFormSelectFieldElement selectElementWithID:1 title:@"Select Option" values:@[@"1 minute",@"5 minutes",@"15 minutes",@"1 hour"] index:0 insertBlank:YES delegate:self];
     selectFieldElement2 = [PLFormSelectFieldElement selectElementWithID:2 title:@"Select Option" items:items index:0 delegate:self];
@@ -58,7 +58,7 @@
     autoCompleteElement.displayAllWhenBlank = YES;
     autoCompleteElement.indexRequired = YES;
     autoCompleteElement.clearsOnBeginEditing = YES;
-
+    
     if (self.prePopulate)
     {
         textFieldElement.value = @"Some text";
@@ -69,17 +69,12 @@
     }
     
     [_textField updateWithElement:textFieldElement];
-    _textField.alignment = NSTextAlignmentLeft;
     [_selectField updateWithElement:selectFieldElement];
-    _selectField.alignment = NSTextAlignmentCenter;
     [_selectField2 updateWithElement:selectFieldElement2];
-    _selectField2.alignment = NSTextAlignmentRight;
     [_dateField updateWithElement:dateFieldElement];
-    _dateField.alignment = NSTextAlignmentCenter;
     [_textView updateWithElement:textViewElement];
-    _textView.alignment = NSTextAlignmentCenter;
     [_autoTextField updateWithElement:autoCompleteElement];
-    _autoTextField.alignment = NSTextAlignmentRight;
+    
     PLConditionPresent *presentCondition = [[PLConditionPresent alloc] initWithLocalizedViolationString:NSLocalizedString(@"Please complete all fields", @"Please complete all fields")];
     textFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
     selectFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
@@ -89,7 +84,7 @@
     autoCompleteElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
     
     self.formModel = @[textFieldElement, selectFieldElement, selectFieldElement2, dateFieldElement, textViewElement, autoCompleteElement];
-
+    
 }
 
 - (void)didReceiveMemoryWarning

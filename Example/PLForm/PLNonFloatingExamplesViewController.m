@@ -65,7 +65,7 @@
     pinElement = [PLFormPinFieldElement pinFieldElementWithID:6 pinLength:5 delegate:self];
     pinElement.dotSize = 10;
     pinElement.enableUnderline = YES;
-
+    
     if (self.prePopulate)
     {
         textFieldElement.value = @"Some text";
@@ -76,19 +76,12 @@
     }
     
     [_textField updateWithElement:textFieldElement];
-    _textField.alignment = NSTextAlignmentCenter;
     [_selectField updateWithElement:selectFieldElement];
-    _selectField.alignment = NSTextAlignmentCenter;
     [_selectField2 updateWithElement:selectFieldElement2];
-    _selectField2.alignment = NSTextAlignmentRight;
     [_dateField updateWithElement:dateFieldElement];
-    _dateField.alignment = NSTextAlignmentCenter;
     [_textView updateWithElement:textViewElement];
-    _textView.alignment = NSTextAlignmentCenter;
     [_autoTextField updateWithElement:autoCompleteElement];
-    _autoTextField.alignment = NSTextAlignmentRight;
     [_pinField updateWithElement:pinElement];
-
     
     PLConditionPresent *presentCondition = [[PLConditionPresent alloc] initWithLocalizedViolationString:NSLocalizedString(@"Please complete all fields", @"Please complete all fields")];
     textFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
