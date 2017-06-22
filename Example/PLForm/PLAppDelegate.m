@@ -17,6 +17,7 @@
 #import <PLForm/PLFormPinField.h>
 #import <PLForm/PLFormSwitchField.h>
 
+@import IQKeyboardManager;
 
 @implementation PLAppDelegate
 
