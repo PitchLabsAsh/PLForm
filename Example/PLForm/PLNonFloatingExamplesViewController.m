@@ -14,6 +14,7 @@
 #import "PLFormTextView.h"
 #import "PLFormAutoCompleteField.h"
 #import "PLFormPinField.h"
+#import "PLFormPhoneField.h"
 #import "PLFormValidator.h"
 
 @interface PLNonFloatingExamplesViewController () <PLFormElementDelegate>
@@ -25,6 +26,7 @@
     PLFormTextViewElement *textViewElement;
     PLFormAutoCompleteFieldElement *autoCompleteElement;
     PLFormPinFieldElement *pinElement;
+    PLFormPhoneFieldElement *phoneElement;
 }
 
 @property (nonatomic, strong) IBOutlet PLFormDateField *dateField;
@@ -34,6 +36,7 @@
 @property (nonatomic, strong) IBOutlet PLFormTextView *textView;
 @property (nonatomic, strong) IBOutlet PLFormAutoCompleteField *autoTextField;
 @property (nonatomic, strong) IBOutlet PLFormPinField *pinField;
+@property (nonatomic, strong) IBOutlet PLFormPhoneField *phoneField;
 
 @end
 
@@ -57,6 +60,7 @@
     selectFieldElement2 = [PLFormSelectFieldElement selectElementWithID:2 title:@"Select Option" items:items index:0 delegate:self];
     dateFieldElement = [PLFormDateFieldElement datePickerElementWithID:3 title:@"Enter a date" date:nil datePickerMode:UIDatePickerModeDate delegate:nil];
     textViewElement = [PLFormTextViewElement textViewElementWithID:4 placeholderText:@"Enter some text" value:nil delegate:nil];
+    phoneElement = [PLFormPhoneFieldElement phoneFieldElementWithID:5 placeholderText:@"Mobile numnber" value:nil delegate:nil];
     
     autoCompleteElement = [PLFormAutoCompleteFieldElement selectElementWithID:5 placeholderText:@"Select Option" values:@[@"Dog",@"Cat",@"Rabbity Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse",@"Dog",@"Cat",@"Rabbit",@"Horse"] delegate:self];
     autoCompleteElement.displayAllWhenBlank = YES;
@@ -82,6 +86,7 @@
     [_textView updateWithElement:textViewElement];
     [_autoTextField updateWithElement:autoCompleteElement];
     [_pinField updateWithElement:pinElement];
+    [_phoneField updateWithElement:phoneElement];
     
     PLConditionPresent *presentCondition = [[PLConditionPresent alloc] initWithLocalizedViolationString:NSLocalizedString(@"Please complete all fields", @"Please complete all fields")];
     textFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
@@ -90,8 +95,11 @@
     dateFieldElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
     textViewElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
     autoCompleteElement.validator = [[PLValidator alloc] initWithCondition:presentCondition,nil];
+
+    PLConditionPhoneNumber *phoneCondition = [[PLConditionPhoneNumber alloc] initWithLocalizedViolationString:NSLocalizedString(@"Please add a valid phone number", nil)];
+    phoneElement.validator = [[PLValidator alloc] initWithCondition:phoneCondition,nil];
     
-    self.formModel = @[textFieldElement, selectFieldElement,selectFieldElement2, dateFieldElement, textViewElement, autoCompleteElement];
+    self.formModel = @[textFieldElement, selectFieldElement,selectFieldElement2, dateFieldElement, textViewElement, autoCompleteElement, phoneElement];
 }
 
 - (void)didReceiveMemoryWarning

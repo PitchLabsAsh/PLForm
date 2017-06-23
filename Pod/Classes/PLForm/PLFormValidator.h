@@ -41,6 +41,8 @@
 #import "PLConditionNot.h"
 #import "PLConditionMatchElement.h"
 #import "PLConditionAccept.h"
+#import "PLConditionPhoneNumber.h"
+
 
 // Validators
 #import "PLValidator.h"
@@ -53,3 +55,4 @@
 #import "PLValidatorPresent.h"
 #import "PLValidatorMatchElement.h"
 #import "PLValidatorAccept.h"
+#import "PLValidatorPhoneNumber.h"

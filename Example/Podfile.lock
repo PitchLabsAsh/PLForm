@@ -2,27 +2,27 @@ PODS:
   - IQKeyboardManager (4.0.10)
   - libPhoneNumber-iOS (0.9.10)
   - PLForm (0.1.7):
+    - libPhoneNumber-iOS
     - PureLayout
   - PureLayout (3.0.2)
   - Reveal-SDK (8)
 
 DEPENDENCIES:
   - IQKeyboardManager
-  - libPhoneNumber-iOS
   - PLForm (from `../`)
   - Reveal-SDK
 
 EXTERNAL SOURCES:
   PLForm:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   libPhoneNumber-iOS: f721ae4d5854bce60934f9fb9b0b28e8e68913cb
-  PLForm: f5858d10405aedcf2fd58ca4f1534b66b1696770
+  PLForm: 22ae5de09a50df906623989bf895295fec65dd7d
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Reveal-SDK: 43be4e662864e937960d0d04d005135e29c4e53b
 
-PODFILE CHECKSUM: 0e1c6ae57467d190e3dc7b1557e0023c13d4a341
+PODFILE CHECKSUM: b509775434dff0349776e16248b029cb3d375982
 
 COCOAPODS: 1.2.1

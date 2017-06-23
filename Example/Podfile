@@ -5,7 +5,6 @@ target 'PLForm_Example' do
   pod "PLForm", :path => "../"
   pod 'IQKeyboardManager'
   pod 'Reveal-SDK', :configurations => ['Debug']
-  pod 'libPhoneNumber-iOS'
 
   target 'PLForm_Tests' do
 	 inherit! :search_paths

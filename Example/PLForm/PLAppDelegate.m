@@ -8,16 +8,9 @@
 
 @import Foundation;
 #import "PLAppDelegate.h"
-#import <PLForm/PLFormTextField.h>
-#import <PLForm/PLFloatingLabelTextField.h>
-#import <PLForm/PLFloatingLabelDateField.h>
-#import <PLForm/PLFloatingLabelSelectField.h>
-#import <PLForm/PLFloatingLabelTextView.h>
-#import <PLForm/PLFloatingLabelAutoCompleteField.h>
-#import <PLForm/PLFormPinField.h>
-#import <PLForm/PLFormSwitchField.h>
 
 @import IQKeyboardManager;
+@import PLForm;
 
 @implementation PLAppDelegate
 
@@ -102,6 +95,14 @@
 
     
     [[PLFormSelectFieldItemCell appearance] setBackgroundColor:[UIColor lightGrayColor]];
+
+    [[PLFormPhoneField appearance] setBackgroundColor:[UIColor whiteColor]];
+    [[PLFormPhoneField appearance] setCornerRadius:2];
+    [[PLFormPhoneField appearance] setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [[PLFormPhoneField appearance] setTextColor:[UIColor blackColor]];
+//    [[PLFormPhoneField appearance] setPlaceholderFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14]];
+//    [[PLFormPhoneField appearance] setPlaceholderColor:[UIColor blueColor]];
+    [[PLFormPhoneField appearance] setContentInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
 
     return YES;
 }

@@ -25,6 +25,7 @@ FOUNDATION_EXPORT const unsigned char PLFormVersionString[];
 #import "PLFloatingLabelAutoCompleteField.h"
 #import "PLFormSwitchField.h"
 #import "PLFormPinField.h"
+#import "PLFormPhoneField.h"
 
 // style helpers
 #import "PLStyleButton.h"

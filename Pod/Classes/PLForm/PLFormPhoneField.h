@@ -6,7 +6,8 @@
 //
 //
 
-#import <PLForm/PLForm.h>
+#import "PLStyleView.h"
+#import "PLFormElement.h"
 
 @interface PLFormPhoneFieldElement : PLFormElement
 
@@ -15,14 +16,18 @@
 @property (nonatomic, copy) NSString* value;
 @property (nonatomic, copy) NSString* placeholderText;
 @property (nonatomic, copy) NSString* originalValue;
+@property (nonatomic, copy) NSString* region;
 
 @end
 
 
-@interface PLFormPhoneField : PLStyleView <UITextFieldDelegate>
+@interface PLFormPhoneField : PLStyleView <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property (nonatomic, strong) PLFormPhoneFieldElement* element;
 
 @property (nonatomic, readonly) UITextField *numberTextfield;
 @property (nonatomic, readonly) UITextField *regionTextfield;
+@property (nonatomic, readonly) UILabel *regionLabel;
 @property (nonatomic, readonly) UIPickerView *pickerView;
 @property (nonatomic) NSString *text;
 @property (nonatomic) NSString *placeholder;
