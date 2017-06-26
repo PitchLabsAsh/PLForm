@@ -261,8 +261,12 @@
         if (![self hasConstraintsForView:_regionLabel])
         {
             [_regionLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
-            [_regionLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+            [_regionLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:_contentInsets.top];
+            [_regionLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:_contentInsets.bottom];
             [_regionLabel autoSetDimension:ALDimensionWidth toSize:50];
+
+//            [_regionLabel autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:_numberTextfield];
+//            [_regionLabel al_alignAttribute:ALAttributeBaseline toView:_numberTextfield forAxis:ALAxisHorizontal];            
         }
     }
     [super updateConstraints];
