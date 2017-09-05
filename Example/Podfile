@@ -3,7 +3,7 @@ use_frameworks!
 
 target 'PLForm_Example' do
   pod "PLForm", :path => "../"
-  pod 'TPKeyboardAvoiding'
+  pod 'IQKeyboardManager'
   pod 'Reveal-SDK', :configurations => ['Debug']
 
   target 'PLForm_Tests' do

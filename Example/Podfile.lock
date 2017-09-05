@@ -1,25 +1,25 @@
 PODS:
-  - PLForm (0.1.6):
+  - IQKeyboardManager (4.0.11)
+  - PLForm (0.1.7):
     - PureLayout
   - PureLayout (3.0.2)
   - Reveal-SDK (2)
-  - TPKeyboardAvoiding (1.3)
 
 DEPENDENCIES:
+  - IQKeyboardManager
   - PLForm (from `../`)
   - Reveal-SDK
-  - TPKeyboardAvoiding
 
 EXTERNAL SOURCES:
   PLForm:
     :path: "../"
 
 SPEC CHECKSUMS:
-  PLForm: ef98e25875079ff22eedf51b16e0f0184f8c7942
+  IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
+  PLForm: f5858d10405aedcf2fd58ca4f1534b66b1696770
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Reveal-SDK: 4d36a47c7091843eee525b72219e005b90bbac0b
-  TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
 
-PODFILE CHECKSUM: c5c5c93f889c2cabbee3635ae4c34e8926b4e7df
+PODFILE CHECKSUM: b509775434dff0349776e16248b029cb3d375982
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.1
