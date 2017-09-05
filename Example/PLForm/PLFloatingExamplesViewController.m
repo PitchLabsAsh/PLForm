@@ -68,6 +68,13 @@
         autoCompleteElement.index = 1;
     }
     
+    _textField.alignment = self.alignment;
+    _selectField.alignment = self.alignment;
+    _selectField2.alignment = self.alignment;
+    _dateField.alignment = self.alignment;
+    _textView.alignment = self.alignment;
+    _autoTextField.alignment = self.alignment;
+    
     [_textField updateWithElement:textFieldElement];
     [_selectField updateWithElement:selectFieldElement];
     [_selectField2 updateWithElement:selectFieldElement2];

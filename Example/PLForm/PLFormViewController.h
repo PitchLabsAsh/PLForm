@@ -11,6 +11,7 @@
 @interface PLFormViewController : UIViewController
 
 @property (nonatomic, strong) NSArray *formModel;
-@property (nonatomic,assign) BOOL prePopulate;
+@property (nonatomic, assign) BOOL prePopulate;
+@property (nonatomic, assign) NSTextAlignment alignment;  // default is NSLeftTextAlignment
 
 @end
