@@ -372,7 +372,9 @@
     NSInteger adjustedRow = (_element.insertBlank) ? row-1:row;
     _valueLabel.text = (adjustedRow<0) ? nil : _element.values[adjustedRow];
     _element.index = adjustedRow;
-
+    if (self.alignment == NSTextAlignmentCenter) {
+        self.titleLabel.hidden = YES;
+    }
     if ([_element.delegate respondsToSelector:@selector(formElementDidChangeValue:)])
     {
         [(id<PLFormElementDelegate>)_element.delegate formElementDidChangeValue:_element];
@@ -430,6 +432,31 @@
     {
         [(id<PLFormElementDelegate>)self.element.delegate formElementDidChangeValue:self.element];
     }
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    _alignment = alignment;
+    switch (alignment) {
+        case NSTextAlignmentRight: {
+        _titleLabel.textAlignment = NSTextAlignmentRight;
+        _valueLabel.textAlignment = NSTextAlignmentLeft;
+        }
+            break;
+        case NSTextAlignmentLeft: {
+            _titleLabel.textAlignment = NSTextAlignmentLeft;
+            _valueLabel.textAlignment = NSTextAlignmentRight;
+        }
+            break;
+        case NSTextAlignmentCenter: {
+            _titleLabel.textAlignment = NSTextAlignmentCenter;
+            _valueLabel.textAlignment = NSTextAlignmentCenter;
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 

@@ -37,6 +37,7 @@
 @property (nonatomic, readonly) UIDatePicker *datePicker;
 
 @property (nonatomic) NSString *title;
+@property(nonatomic) NSTextAlignment alignment;  // default is NSLeftTextAlignment
 @property (nonatomic) UIEdgeInsets contentInsets UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, strong) UIFont *font UI_APPEARANCE_SELECTOR;

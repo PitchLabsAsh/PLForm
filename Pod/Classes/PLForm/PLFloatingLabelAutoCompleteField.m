@@ -25,10 +25,10 @@
 
 @dynamic placeholder;
 
+
 -(void)setup
 {
     [super setup];
-
     _floatingLabel = [[UILabel alloc] initWithFrame:self.bounds];
     _floatingLabel.alpha = 0.0f;
     [self addSubview:_floatingLabel];
@@ -86,6 +86,7 @@
         {
             [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
+            [_floatingLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
         }
         if (![self hasConstraintsForView:self.textfield])
         {
@@ -111,6 +112,7 @@
 -(void)updateWithElement:(PLFormAutoCompleteFieldElement*)element
 {
     [super updateWithElement:element];
+    self.floatingLabel.alpha = 0;
     if (element.index >=0)
     {
         [self showFloatingLabel:NO];
@@ -188,6 +190,14 @@
     {
         hideBlock();
     }
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    [super setAlignment:alignment];
+    //self.label.textAlignment = alignment;
+    _floatingLabel.textAlignment = alignment;
+    [self removeConstraintsForView:_floatingLabel];
+    [self updateConstraints];
 }
 
 @end

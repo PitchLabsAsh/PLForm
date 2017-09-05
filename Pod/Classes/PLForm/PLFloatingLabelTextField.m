@@ -72,6 +72,7 @@
         if (![self hasConstraintsForView:_floatingLabel])
         {
             [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            [_floatingLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
         }
         if (![self hasConstraintsForView:self.textfield])
@@ -176,6 +177,13 @@
     {
         hideBlock();
     }
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    [super setAlignment:alignment];
+    _floatingLabel.textAlignment = alignment;
+    [self removeConstraintsForView:_floatingLabel];
+    [self updateConstraints];
 }
 
 @end

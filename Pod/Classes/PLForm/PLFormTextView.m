@@ -180,7 +180,19 @@
         }
         if (![self hasConstraintsForView:_placeholderLabel])
         {
-            [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+            switch (self.alignment) {
+                case NSTextAlignmentRight:
+                    [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:_contentInsets.right];
+                    break;
+                case NSTextAlignmentCenter:
+                    [_placeholderLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
+                    [self.placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+                    break;
+                default:
+                    [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:_contentInsets.left];
+                    break;
+            }
+            
             [_placeholderLabel autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:_contentInsets.top];
         }
     }
@@ -222,6 +234,12 @@
     {
         [(id<PLFormElementDelegate>)self.element.delegate formElementDidEndEditing:self.element];
     }
+}
+
+- (void)setAlignment:(NSTextAlignment)alignment {
+    _alignment = alignment;
+    self.textview.textAlignment = alignment;
+    _placeholderLabel.textAlignment = alignment;
 }
 
 

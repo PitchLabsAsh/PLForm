@@ -65,7 +65,7 @@
     pinElement = [PLFormPinFieldElement pinFieldElementWithID:6 pinLength:5 delegate:self];
     pinElement.dotSize = 10;
     pinElement.enableUnderline = YES;
-
+    
     if (self.prePopulate)
     {
         textFieldElement.value = @"Some text";

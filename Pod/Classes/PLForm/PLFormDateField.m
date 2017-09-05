@@ -283,12 +283,38 @@
     // update the value label with formatted date
     _element.date = _datePicker.date;
     _valueLabel.text = [_element valueAsString];
+    if (self.alignment == NSTextAlignmentCenter) {
+        self.titleLabel.hidden = YES;
+    }
     if ([_element.delegate respondsToSelector:@selector(formElementDidChangeValue:)])
     {
         [(id<PLFormElementDelegate>)_element.delegate formElementDidChangeValue:_element];
     }
 }
 
-
+- (void)setAlignment:(NSTextAlignment)alignment {
+    _alignment = alignment;
+    _alignment = alignment;
+    switch (alignment) {
+        case NSTextAlignmentRight: {
+            _titleLabel.textAlignment = NSTextAlignmentRight;
+            _valueLabel.textAlignment = NSTextAlignmentLeft;
+        }
+            break;
+        case NSTextAlignmentLeft: {
+            _titleLabel.textAlignment = NSTextAlignmentLeft;
+            _valueLabel.textAlignment = NSTextAlignmentRight;
+        }
+            break;
+        case NSTextAlignmentCenter: {
+            _titleLabel.textAlignment = NSTextAlignmentCenter;
+            _valueLabel.textAlignment = NSTextAlignmentCenter;
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 @end
