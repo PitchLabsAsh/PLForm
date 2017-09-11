@@ -71,6 +71,12 @@
     _textfield = [[UITextField alloc] initWithFrame:self.bounds];
     [_textfield addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
     _textfield.delegate = self;
+    
+    if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute: self.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft)
+    {
+        [self setAlignment:NSTextAlignmentRight];
+    }
+    
     [self addSubview:_textfield];
     
     _contentInsets = UIEdgeInsetsMake(2, 10, 2, 10);
