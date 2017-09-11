@@ -71,7 +71,14 @@
     {
         if (![self hasConstraintsForView:_floatingLabel])
         {
-            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:self.contentInsets.left];
+            CGFloat edgeInset = self.contentInsets.left;
+            
+            if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute: self.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft)
+            {
+                edgeInset = -self.contentInsets.left;
+            }
+            
+            [_floatingLabel autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:edgeInset];
             [_floatingLabel autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
             floatingLabelCenterConstraint = [_floatingLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:0];
         }
